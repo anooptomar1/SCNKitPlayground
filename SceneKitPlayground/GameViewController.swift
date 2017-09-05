@@ -11,20 +11,15 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-
+    let mazeManager = MazeManager.sharedInstance
+    let scene = SCNScene()
+    let cameraNode = SCNNode()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
+        mazeManager.setUp()
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
-        
-        // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -41,10 +36,7 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(ambientLightNode)
         
         // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        
-        // animate the 3d object
-        ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+        createMaze()
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -121,5 +113,69 @@ class GameViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
+    
+    func createNode() -> SCNNode {
+        let geometry = SCNSphere(radius: 1)
+        return SCNNode(geometry: geometry)
+    }
 
+    func createWall() -> SCNNode {
+        let geometry = SCNBox(width: 1, height: 3, length: 1, chamferRadius: 0)
+        return SCNNode(geometry: geometry)
+    }
+    
+    func createMaze() {
+        
+        let dict = mazeManager.maze.invalid
+        for index in 0...9 {
+            if let array = dict[index] {
+                for position in array {
+                    let wall = createWall()
+                    wall.position = SCNVector3(x: Float(index), y: 0, z: Float(position))
+                    scene.rootNode.addChildNode(wall)
+                }
+            }
+        }
+        
+        
+        createBorders()
+        // place the camera
+        let startX = Float(mazeManager.maze.start.0)
+        let startZ = Float(mazeManager.maze.start.1)
+        let startWall = createWall()
+        startWall.position = SCNVector3(x: startX, y: 0, z: startZ)
+        scene.rootNode.addChildNode(startWall)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named: "cliff")
+        startWall.geometry?.materials = [material]
+        
+        cameraNode.position = SCNVector3(x: startX, y: 0, z: startZ)
+    }
+    
+    func createBorders() {
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named: "cliff")
+
+        for index in 0...11 {
+            let borderWallZ = createWall()
+            borderWallZ.position = SCNVector3(x: -1, y: 0, z: Float(index)-1)
+            borderWallZ.geometry?.materials = [material]
+            scene.rootNode.addChildNode(borderWallZ)
+            
+            let borderWallZ2 = createWall()
+            borderWallZ2.position = SCNVector3(x: 10, y: 0, z: Float(index)-1)
+            borderWallZ2.geometry?.materials = [material]
+            scene.rootNode.addChildNode(borderWallZ2)
+            
+            let borderWallX = createWall()
+            borderWallX.position = SCNVector3(x: Float(index)-1, y: 0, z: -1)
+            borderWallX.geometry?.materials = [material]
+            scene.rootNode.addChildNode(borderWallX)
+            
+            let borderWallX2 = createWall()
+            borderWallX2.position = SCNVector3(x: Float(index)-1, y: 0, z: 10)
+            borderWallX2.geometry?.materials = [material]
+            scene.rootNode.addChildNode(borderWallX2)
+        }
+    }
 }

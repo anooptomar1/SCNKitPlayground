@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		891D535D1F5E3A7B00533E8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D535C1F5E3A7B00533E8F /* AppDelegate.swift */; };
-		891D535F1F5E3A7B00533E8F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 891D535E1F5E3A7B00533E8F /* art.scnassets */; };
 		891D53611F5E3A7B00533E8F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D53601F5E3A7B00533E8F /* GameViewController.swift */; };
 		891D53641F5E3A7B00533E8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 891D53621F5E3A7B00533E8F /* Main.storyboard */; };
 		891D53661F5E3A7B00533E8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 891D53651F5E3A7B00533E8F /* Assets.xcassets */; };
 		891D53691F5E3A7B00533E8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 891D53671F5E3A7B00533E8F /* LaunchScreen.storyboard */; };
+		891D53711F5EF44000533E8F /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D53701F5EF44000533E8F /* Maze.swift */; };
+		891D53731F5EF57200533E8F /* MazeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D53721F5EF57200533E8F /* MazeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		891D53591F5E3A7B00533E8F /* SceneKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		891D535C1F5E3A7B00533E8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		891D535E1F5E3A7B00533E8F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		891D53601F5E3A7B00533E8F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		891D53631F5E3A7B00533E8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		891D53651F5E3A7B00533E8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		891D53681F5E3A7B00533E8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		891D536A1F5E3A7B00533E8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		891D53701F5EF44000533E8F /* Maze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
+		891D53721F5EF57200533E8F /* MazeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				891D535C1F5E3A7B00533E8F /* AppDelegate.swift */,
-				891D535E1F5E3A7B00533E8F /* art.scnassets */,
 				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
+				891D53721F5EF57200533E8F /* MazeManager.swift */,
+				891D53701F5EF44000533E8F /* Maze.swift */,
 				891D53621F5E3A7B00533E8F /* Main.storyboard */,
 				891D53651F5E3A7B00533E8F /* Assets.xcassets */,
 				891D53671F5E3A7B00533E8F /* LaunchScreen.storyboard */,
@@ -127,7 +130,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891D535F1F5E3A7B00533E8F /* art.scnassets in Resources */,
 				891D53691F5E3A7B00533E8F /* LaunchScreen.storyboard in Resources */,
 				891D53661F5E3A7B00533E8F /* Assets.xcassets in Resources */,
 				891D53641F5E3A7B00533E8F /* Main.storyboard in Resources */,
@@ -141,8 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				891D53731F5EF57200533E8F /* MazeManager.swift in Sources */,
 				891D53611F5E3A7B00533E8F /* GameViewController.swift in Sources */,
 				891D535D1F5E3A7B00533E8F /* AppDelegate.swift in Sources */,
+				891D53711F5EF44000533E8F /* Maze.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

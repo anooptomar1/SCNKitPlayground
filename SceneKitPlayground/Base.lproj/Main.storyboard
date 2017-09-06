@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,11 +38,25 @@
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iai-um-QxO">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="602"/>
                             </sceneKitView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCf-Sz-O1H">
-                                <rect key="frame" x="164" y="617" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFa-x6-GnV">
+                                <rect key="frame" x="172.5" y="617" width="30" height="30"/>
+                                <state key="normal" title="Fly"/>
                                 <connections>
-                                    <action selector="moveButtonPressed:" destination="dze-Qf-NST" eventType="touchUpInside" id="gC4-IP-Mlu"/>
+                                    <action selector="flyButtonPressed:" destination="dze-Qf-NST" eventType="touchUpInside" id="XsB-R6-ph0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5PJ-wr-upO">
+                                <rect key="frame" x="258.5" y="617" width="47" height="30"/>
+                                <state key="normal" title="MoveZ"/>
+                                <connections>
+                                    <action selector="moveZPressed:" destination="dze-Qf-NST" eventType="touchUpInside" id="z27-xm-EmU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCf-Sz-O1H">
+                                <rect key="frame" x="70.5" y="617" width="47" height="30"/>
+                                <state key="normal" title="MoveX"/>
+                                <connections>
+                                    <action selector="moveXPressed:" destination="dze-Qf-NST" eventType="touchUpInside" id="iwF-YG-MWZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -49,10 +64,14 @@
                         <constraints>
                             <constraint firstItem="Iai-um-QxO" firstAttribute="leading" secondItem="BUY-Mt-Rp4" secondAttribute="leading" id="Biz-QK-5C5"/>
                             <constraint firstItem="mcO-Uk-o0Z" firstAttribute="top" secondItem="YCf-Sz-O1H" secondAttribute="bottom" constant="20" id="D8A-oS-qWT"/>
+                            <constraint firstItem="IFa-x6-GnV" firstAttribute="centerX" secondItem="BUY-Mt-Rp4" secondAttribute="centerX" id="Jd7-0E-XCU"/>
+                            <constraint firstItem="mcO-Uk-o0Z" firstAttribute="top" secondItem="5PJ-wr-upO" secondAttribute="bottom" constant="20" id="VKo-YN-F3b"/>
                             <constraint firstItem="Iai-um-QxO" firstAttribute="top" secondItem="BUY-Mt-Rp4" secondAttribute="top" id="XcV-0G-Xv5"/>
-                            <constraint firstItem="YCf-Sz-O1H" firstAttribute="centerX" secondItem="BUY-Mt-Rp4" secondAttribute="centerX" id="dp8-2y-1EV"/>
+                            <constraint firstItem="5PJ-wr-upO" firstAttribute="centerX" secondItem="BUY-Mt-Rp4" secondAttribute="centerX" multiplier="1.5" id="Z6M-0a-h5C"/>
+                            <constraint firstItem="YCf-Sz-O1H" firstAttribute="centerX" secondItem="BUY-Mt-Rp4" secondAttribute="centerX" multiplier="0.5" id="dp8-2y-1EV"/>
                             <constraint firstAttribute="trailing" secondItem="Iai-um-QxO" secondAttribute="trailing" id="rEe-9X-Mdl"/>
                             <constraint firstItem="mcO-Uk-o0Z" firstAttribute="top" secondItem="Iai-um-QxO" secondAttribute="bottom" constant="65" id="vIC-Lf-X5H"/>
+                            <constraint firstItem="mcO-Uk-o0Z" firstAttribute="top" secondItem="IFa-x6-GnV" secondAttribute="bottom" constant="20" id="vk5-Te-O2V"/>
                         </constraints>
                     </view>
                     <connections>

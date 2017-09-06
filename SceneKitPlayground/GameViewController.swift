@@ -18,11 +18,11 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     var cameraElevation: Float = 0
     var cameraDirection: Float = 0
     @IBOutlet weak var sceneView: SCNView!
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
-    
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -43,6 +43,8 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         setUpLight()
         createMaze()
         createBorders()
+        // createSky()
+        createGround()
     }
     
     func setUpSceneView() {
@@ -92,9 +94,9 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         let geometry = SCNSphere(radius: 1)
         return SCNNode(geometry: geometry)
     }
-
+    
     func createWall() -> SCNNode {
-        let geometry = SCNBox(width: 2, height: 3, length: 2, chamferRadius: 0)
+        let geometry = SCNBox(width: 2, height: 3, length: 2, chamferRadius: 0.05)
         return SCNNode(geometry: geometry)
     }
     
@@ -103,7 +105,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         for index in 0...9 {
             if let array = dict[index] {
                 for position in array {
+                    let material = SCNMaterial()
+                    material.diffuse.contents = UIImage(named: "hedge")
                     let wall = createWall()
+                    wall.geometry?.materials = [material]
                     wall.position = SCNVector3(x: (Float(index))*2, y: 0, z: (Float(position))*2)
                     scene.rootNode.addChildNode(wall)
                 }
@@ -114,7 +119,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     func createBorders() {
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "cliff")
-
+        
         for index in 0...11 {
             let borderWallZ = createWall()
             borderWallZ.position = SCNVector3(x: -2, y: 0, z: (Float(index)-1)*2)
@@ -141,23 +146,34 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     func createSky() {
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "sky")
-
+        let geometry = SCNBox(width: 24, height: 1, length: 24, chamferRadius: 0)
+        let skyBox = SCNNode(geometry: geometry)
+        scene.rootNode.addChildNode(skyBox)
+        skyBox.position = SCNVector3(x: 9, y: 2, z: 9)
+        skyBox.geometry?.materials = [material]
     }
     
+    func createGround() {
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named: "path")
+        let geometry = SCNBox(width: 24, height: 0.5, length: 24, chamferRadius: 0)
+        let ground = SCNNode(geometry: geometry)
+        scene.rootNode.addChildNode(ground)
+        ground.position = SCNVector3(x: 9, y: -2, z: 9)
+        ground.geometry?.materials = [material]
+    }
 }
 
 extension GameViewController {
     func panInView(_ sender: UIPanGestureRecognizer) {
-        
-        //get translation and convert to rotation
-        
         let translation = sender.translation(in: view)
-        cameraDirection += Float(translation.x/300)
-        cameraElevation += Float(translation.y/300)
+        cameraDirection += Float(translation.x/200)
+        cameraElevation += Float(translation.y/200)
         cameraNode.eulerAngles = SCNVector3(x: cameraElevation, y: cameraDirection, z: 0)
+        print(self.cameraNode.eulerAngles)
         sender.setTranslation(CGPoint(x:0, y:0), in: self.view)
     }
-   
+    
     func tapInView(_ sender: UIGestureRecognizer) {
         
         // check what nodes are tapped
@@ -190,11 +206,27 @@ extension GameViewController {
             SCNTransaction.commit()
         }
     }
-
-    @IBAction func moveButtonPressed(_ sender: UIButton) {
+    
+    @IBAction func moveXPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y+2, z: position.z), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x+2, y: position.y, z: position.z), duration: 1)
+            self.cameraNode.runAction(moveTo)
+        })
+    }
+    
+    @IBAction func moveZPressed(_ sender: UIButton) {
+        UIView.animate(withDuration: 1, animations: {
+            let position = self.cameraNode.position
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+2), duration: 1)
+            self.cameraNode.runAction(moveTo)
+        })
+    }
+    
+    @IBAction func flyButtonPressed(_ sender: UIButton) {
+        UIView.animate(withDuration: 1, animations: {
+            let position = self.cameraNode.position
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y+3, z: position.z), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }

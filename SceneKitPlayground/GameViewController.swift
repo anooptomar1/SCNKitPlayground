@@ -64,12 +64,13 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         let camera = SCNCamera()
         cameraNode.camera = camera
         scene.rootNode.addChildNode(cameraNode)
-        
-        let startX = Float(mazeManager.maze.start.0)
-        let startZ = Float(mazeManager.maze.start.1)
+        let maze = mazeManager.maze
+        let startX = Float(maze.start.0)
+        let startZ = Float(maze.start.1)
         cameraNode.position = SCNVector3(x: startX*5, y: 0, z: startZ*5)
-        cameraDirection = cameraNode.orientation.y
+        cameraDirection = Float.pi/2 * Float(maze.startFacing.rawValue)
         cameraElevation = cameraNode.orientation.x
+        cameraNode.eulerAngles = SCNVector3(x: cameraElevation, y: cameraDirection, z: 0)
     }
     
     func setUpLight() {
@@ -103,14 +104,14 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func createMaze() {
         let dict = mazeManager.maze.invalid
-        for index in 0...9 {
-                if let array = dict[index] {
-                for position in array {
+        for zIndex in 0...9 {
+                if let array = dict[zIndex] {
+                for xIndex in array {
                     let material = SCNMaterial()
                     material.diffuse.contents = UIImage(named: "hedge")
                     let wall = createWall()
                     wall.geometry?.materials = [material]
-                    wall.position = SCNVector3(x: (Float(index))*5, y: 0, z: (Float(position))*5)
+                    wall.position = SCNVector3(x: (Float(xIndex))*5, y: 0, z: (Float(zIndex))*5)
                     scene.rootNode.addChildNode(wall)
                 }
             }

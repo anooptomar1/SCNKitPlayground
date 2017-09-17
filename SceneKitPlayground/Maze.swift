@@ -9,14 +9,15 @@
 import UIKit
 
 class Maze: NSObject {
-var start = (0, 0)
-var end = (0, 0)
-var invalid = [Int: [Int]]()
+    var start = (0, 0)
+    var end = (0, 0)
+    var invalid = [Int: [Int]]()
+    var startFacing:Direction = .north
     
     init(dictionary: [Int: [Int]]) {
         invalid = dictionary
         super.init()
     }
-
+    
     
 }

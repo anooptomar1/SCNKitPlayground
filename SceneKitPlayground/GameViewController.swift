@@ -61,12 +61,13 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func setUpCamera() {
-        cameraNode.camera = SCNCamera()
+        let camera = SCNCamera()
+        cameraNode.camera = camera
         scene.rootNode.addChildNode(cameraNode)
         
         let startX = Float(mazeManager.maze.start.0)
         let startZ = Float(mazeManager.maze.start.1)
-        cameraNode.position = SCNVector3(x: startX*2-0.2, y: 0, z: startZ*2-0.2)
+        cameraNode.position = SCNVector3(x: startX*5, y: 0, z: startZ*5)
         cameraDirection = cameraNode.orientation.y
         cameraElevation = cameraNode.orientation.x
     }
@@ -96,20 +97,20 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func createWall() -> SCNNode {
-        let geometry = SCNBox(width: 2, height: 3, length: 2, chamferRadius: 0.05)
+        let geometry = SCNBox(width: 5, height: 3, length: 5, chamferRadius: 0.05)
         return SCNNode(geometry: geometry)
     }
     
     func createMaze() {
         let dict = mazeManager.maze.invalid
         for index in 0...9 {
-            if let array = dict[index] {
+                if let array = dict[index] {
                 for position in array {
                     let material = SCNMaterial()
                     material.diffuse.contents = UIImage(named: "hedge")
                     let wall = createWall()
                     wall.geometry?.materials = [material]
-                    wall.position = SCNVector3(x: (Float(index))*2, y: 0, z: (Float(position))*2)
+                    wall.position = SCNVector3(x: (Float(index))*5, y: 0, z: (Float(position))*5)
                     scene.rootNode.addChildNode(wall)
                 }
             }
@@ -120,24 +121,24 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "cliff")
         
-        for index in 0...11 {
+        for index in -1...10 {
             let borderWallZ = createWall()
-            borderWallZ.position = SCNVector3(x: -2, y: 0, z: (Float(index)-1)*2)
+            borderWallZ.position = SCNVector3(x: -5, y: 0, z: Float(index)*5)
             borderWallZ.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallZ)
             
             let borderWallZ2 = createWall()
-            borderWallZ2.position = SCNVector3(x: 20, y: 0, z: (Float(index)-1)*2)
+            borderWallZ2.position = SCNVector3(x: 50, y: 0, z: Float(index)*5)
             borderWallZ2.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallZ2)
             
             let borderWallX = createWall()
-            borderWallX.position = SCNVector3(x: (Float(index)-1)*2, y: 0, z: -2)
+            borderWallX.position = SCNVector3(x: Float(index)*5, y: 0, z: -5)
             borderWallX.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallX)
             
             let borderWallX2 = createWall()
-            borderWallX2.position = SCNVector3(x: (Float(index)-1)*2, y: 0, z: 20)
+            borderWallX2.position = SCNVector3(x: Float(index)*5, y: 0, z: 50)
             borderWallX2.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallX2)
         }
@@ -154,13 +155,16 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func createGround() {
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "path")
-        let geometry = SCNBox(width: 24, height: 0.5, length: 24, chamferRadius: 0)
-        let ground = SCNNode(geometry: geometry)
-        scene.rootNode.addChildNode(ground)
-        ground.position = SCNVector3(x: 9, y: -2, z: 9)
-        ground.geometry?.materials = [material]
+        for xIndex in -1...10 {
+            for zIndex in -1...10 {
+                let material = SCNMaterial()
+                material.diffuse.contents = UIImage(named: "path")
+                let wall = createWall()
+                wall.geometry?.materials = [material]
+                wall.position = SCNVector3(x: (Float(xIndex))*5, y: -3, z: (Float(zIndex))*5)
+                scene.rootNode.addChildNode(wall)
+            }
+        }
     }
 }
 
@@ -170,7 +174,6 @@ extension GameViewController {
         cameraDirection += Float(translation.x/200)
         cameraElevation += Float(translation.y/200)
         cameraNode.eulerAngles = SCNVector3(x: cameraElevation, y: cameraDirection, z: 0)
-        print(self.cameraNode.eulerAngles)
         sender.setTranslation(CGPoint(x:0, y:0), in: self.view)
     }
     
@@ -210,7 +213,7 @@ extension GameViewController {
     @IBAction func moveXPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x+2, y: position.y, z: position.z), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x+5, y: position.y, z: position.z), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }
@@ -218,7 +221,7 @@ extension GameViewController {
     @IBAction func moveReverseXPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x-2, y: position.y, z: position.z), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x-5, y: position.y, z: position.z), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }
@@ -242,7 +245,7 @@ extension GameViewController {
     @IBAction func moveZPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+2), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+5), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }
@@ -250,7 +253,7 @@ extension GameViewController {
     @IBAction func moveReverseZPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-2), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-5), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }

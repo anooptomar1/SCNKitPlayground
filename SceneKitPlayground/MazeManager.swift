@@ -36,9 +36,8 @@ class MazeManager: NSObject {
     func setUp() {
         createMazeArray()
         let number = arc4random_uniform(UInt32(mazeArray.count))
-        maze = mazeArray[3]
+        maze = mazeArray[Int(number)]
         getImages()
-        //        maze = mazeArray[Int(number)]
     }
     
     func createMazeArray() {

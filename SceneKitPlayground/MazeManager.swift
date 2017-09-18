@@ -18,19 +18,29 @@ enum Direction: Int {
 class MazeManager: NSObject {
     static let sharedInstance = MazeManager()
     private override init() {}
+    var delegate: NetworkViewControllerProtocol!
+    let dataManager = DataManager.sharedInstance
     var maze = Maze(dictionary: [:])
     var mazeArray = [Maze]()
+    var tileArray = [[TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject](),
+                     [TileObject]()]
     
     func setUp() {
         createMazeArray()
         let number = arc4random_uniform(UInt32(mazeArray.count))
         maze = mazeArray[3]
+        getImages()
         //        maze = mazeArray[Int(number)]
     }
-    /*0 up
-     1 left
-     2 down
-     3 right*/
+    
     func createMazeArray() {
         let maze0 = Maze(dictionary: [
             0: [4, 5, 6, 7, 8],
@@ -110,5 +120,75 @@ class MazeManager: NSObject {
         maze4.end = (4, 4)
         maze4.startFacing = .north
         mazeArray.append(maze4)
+    }
+}
+
+extension MazeManager {
+    func getImageRequestURL() -> URL{
+        var url = URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo")//&tags=")
+        //            if ([self togglePracticeMode]) {
+        //                urlString = [[NSMutableString alloc] initWithString:@"https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=200&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo&tags="];
+        //            }
+        //            NSString *tagWithoutWhiteSpace = [tagEntry stringByReplacingOccurrencesOfString:@" " withString:@""];
+        //            [urlString appendString:tagWithoutWhiteSpace];
+        //            return [NSURL URLWithString:urlString];
+        //        }
+        return url!
+    }
+    
+    func getImages() {
+        let request = URLRequest(url: getImageRequestURL())
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5
+        config.timeoutIntervalForResource = 15
+        let session = URLSession(configuration: config)
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
+            do {
+                if data == nil {
+                    return
+                }
+                if (error != nil) {
+                    print(error!.localizedDescription)
+                    return
+                }
+                let dict = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! Dictionary<String, Any>
+                let photoDict = dict["photos"] as! [String: Any]
+                var photoArray = photoDict["photo"] as! [[String: Any]]
+                while photoArray.count < 100 {
+                    photoArray += photoArray
+                }
+                
+                var zIndex = 0
+                for index in 0...99 {
+                    if self.tileArray[zIndex].count > 9 {
+                        zIndex += 1
+                    }
+
+                    let tile = self.generateTileWithDictionary(photoArray[index])
+                    self.tileArray[zIndex].append(tile)
+
+                }
+                DispatchQueue.main.async {
+                    self.delegate.callSucceeded()
+                }
+                
+            } catch {
+                print("Details of JSON parsing error:\n \(error)")
+            }
+        }
+        dataTask.resume()
+    }
+    
+    func generateTileWithDictionary(_ dict: [String: Any]) -> TileObject {
+        let tile = dataManager.generateTileObject()
+        let farm = String(dict["farm"] as! Int)
+        let server = dict["server"] as! String
+        let id = dict["id"] as! String
+        let secret = dict["secret"] as! String
+        let url = URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret).jpg")
+        let data = NSData(contentsOf: url!)
+        tile.image = data
+        tile.title = dict["title"] as? String
+        return tile
     }
 }

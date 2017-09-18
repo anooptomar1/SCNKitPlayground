@@ -14,6 +14,11 @@
 		891D53691F5E3A7B00533E8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 891D53671F5E3A7B00533E8F /* LaunchScreen.storyboard */; };
 		891D53711F5EF44000533E8F /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D53701F5EF44000533E8F /* Maze.swift */; };
 		891D53731F5EF57200533E8F /* MazeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D53721F5EF57200533E8F /* MazeManager.swift */; };
+		896F1B3F1F6F515200E5A412 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */; };
+		896F1B411F6F52C500E5A412 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896F1B401F6F52C500E5A412 /* Protocols.swift */; };
+		896F1B441F6F577100E5A412 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896F1B431F6F577100E5A412 /* CoreData.framework */; };
+		896F1B461F6F5C9B00E5A412 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */; };
+		896F1B4B1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 896F1B491F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		891D536A1F5E3A7B00533E8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		891D53701F5EF44000533E8F /* Maze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
 		891D53721F5EF57200533E8F /* MazeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeManager.swift; sourceTree = "<group>"; };
+		896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		896F1B401F6F52C500E5A412 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		896F1B431F6F577100E5A412 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		896F1B4A1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlickrMaze3D.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896F1B441F6F577100E5A412 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +55,7 @@
 			children = (
 				891D535B1F5E3A7B00533E8F /* SceneKitPlayground */,
 				891D535A1F5E3A7B00533E8F /* Products */,
+				896F1B421F6F577100E5A412 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,14 +72,26 @@
 			children = (
 				891D535C1F5E3A7B00533E8F /* AppDelegate.swift */,
 				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
+				896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */,
 				891D53721F5EF57200533E8F /* MazeManager.swift */,
+				896F1B401F6F52C500E5A412 /* Protocols.swift */,
 				891D53701F5EF44000533E8F /* Maze.swift */,
+				896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */,
+				896F1B491F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld */,
 				891D53621F5E3A7B00533E8F /* Main.storyboard */,
 				891D53651F5E3A7B00533E8F /* Assets.xcassets */,
 				891D53671F5E3A7B00533E8F /* LaunchScreen.storyboard */,
 				891D536A1F5E3A7B00533E8F /* Info.plist */,
 			);
 			path = SceneKitPlayground;
+			sourceTree = "<group>";
+		};
+		896F1B421F6F577100E5A412 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				896F1B431F6F577100E5A412 /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,10 +167,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896F1B4B1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld in Sources */,
+				896F1B3F1F6F515200E5A412 /* LoadingViewController.swift in Sources */,
+				896F1B461F6F5C9B00E5A412 /* DataManager.swift in Sources */,
 				891D53731F5EF57200533E8F /* MazeManager.swift in Sources */,
 				891D53611F5E3A7B00533E8F /* GameViewController.swift in Sources */,
 				891D535D1F5E3A7B00533E8F /* AppDelegate.swift in Sources */,
 				891D53711F5EF44000533E8F /* Maze.swift in Sources */,
+				896F1B411F6F52C500E5A412 /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,8 +340,22 @@
 				891D536F1F5E3A7B00533E8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		896F1B491F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				896F1B4A1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodel */,
+			);
+			currentVersion = 896F1B4A1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodel */;
+			path = FlickrMaze3D.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 891D53511F5E3A7B00533E8F /* Project object */;
 }

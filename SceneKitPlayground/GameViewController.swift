@@ -19,10 +19,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     var cameraDirection: Float = 0
     @IBOutlet weak var sceneView: SCNView!
     
-    override var shouldAutorotate: Bool {
-        return true
-    }
-
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -37,7 +33,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mazeManager.setUp()
         setUpSceneView()
         setUpCamera()
         setUpLight()
@@ -156,10 +151,12 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func createGround() {
-        for xIndex in -1...10 {
-            for zIndex in -1...10 {
+        for xIndex in 0...9 {
+            for zIndex in 0...9 {
+                let tile = mazeManager.tileArray[xIndex][zIndex]
                 let material = SCNMaterial()
-                material.diffuse.contents = UIImage(named: "path")
+                let image = UIImage(data: tile.image! as Data)
+                material.diffuse.contents = image
                 let wall = createWall()
                 wall.geometry?.materials = [material]
                 wall.position = SCNVector3(x: (Float(xIndex))*5, y: -3, z: (Float(zIndex))*5)
@@ -212,6 +209,7 @@ extension GameViewController {
     }
     
     @IBAction func moveXPressed(_ sender: UIButton) {
+        //east
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
             let moveTo = SCNAction.move(to: SCNVector3(x: position.x+5, y: position.y, z: position.z), duration: 1)
@@ -220,6 +218,7 @@ extension GameViewController {
     }
     
     @IBAction func moveReverseXPressed(_ sender: UIButton) {
+        //west
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
             let moveTo = SCNAction.move(to: SCNVector3(x: position.x-5, y: position.y, z: position.z), duration: 1)
@@ -244,6 +243,7 @@ extension GameViewController {
     }
 
     @IBAction func moveZPressed(_ sender: UIButton) {
+        //south
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
             let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+5), duration: 1)
@@ -252,6 +252,7 @@ extension GameViewController {
     }
     
     @IBAction func moveReverseZPressed(_ sender: UIButton) {
+        //north
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
             let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-5), duration: 1)

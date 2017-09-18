@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dze-Qf-NST">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5wS-Os-HLi">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Loading View Controller-->
+        <scene sceneID="66w-a3-hsZ">
+            <objects>
+                <viewController id="5wS-Os-HLi" customClass="LoadingViewController" customModule="SceneKitPlayground" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VqV-EH-4cK"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lkq-sN-rJH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qgr-uM-kEw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rVx-8P-Xa8">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rVx-8P-Xa8" firstAttribute="centerY" secondItem="qgr-uM-kEw" secondAttribute="centerY" id="5AD-91-wij"/>
+                            <constraint firstItem="rVx-8P-Xa8" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="Xez-45-hOD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="rVx-8P-Xa8" id="7kH-Vl-MHw"/>
+                        <segue destination="dze-Qf-NST" kind="show" identifier="GameViewController" id="OJF-Ty-nHF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cK6-Lt-ODN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-688" y="775"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="R8c-yx-F2D">
             <objects>

@@ -18,6 +18,4 @@ class Maze: NSObject {
         invalid = dictionary
         super.init()
     }
-    
-    
 }

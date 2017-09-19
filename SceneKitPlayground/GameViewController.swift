@@ -190,12 +190,22 @@ extension GameViewController {
     }
     
     func moveNodeIntoView(node: SCNNode) {
+        SCNTransaction.begin()
         SCNTransaction.animationDuration = 1.0
-        var translation = 3
-        if node.position.y == 0 {
+        var translation = 0
+        if node.position.y >= 0 {
             translation = -3
         }
-        node.position = SCNVector3(x: node.position.x, y: node.position.y + Float(translation), z: node.position.z)
+        node.position = SCNVector3(x: node.position.x, y: Float(translation), z: node.position.z)
+        
+        SCNTransaction.completionBlock = {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 1.0
+            node.position = SCNVector3(x: node.position.x, y: -3, z: node.position.z)
+            SCNTransaction.commit()
+        }
+
+        SCNTransaction.commit()
     }
     
     @IBAction func moveXPressed(_ sender: UIButton) {

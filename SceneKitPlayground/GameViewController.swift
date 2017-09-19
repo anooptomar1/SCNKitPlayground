@@ -184,28 +184,18 @@ extension GameViewController {
         if hitResults.count > 0 {
             // retrieved the first clicked object
             let result: AnyObject = hitResults[0]
-            
-            // get its material
-            let material = result.node!.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
-            }
-            
-            material.emission.contents = UIColor.red
-            
-            SCNTransaction.commit()
+            let node = result.node!
+            moveNodeIntoView(node: node)
         }
+    }
+    
+    func moveNodeIntoView(node: SCNNode) {
+        SCNTransaction.animationDuration = 1.0
+        var translation = 3
+        if node.position.y == 0 {
+            translation = -3
+        }
+        node.position = SCNVector3(x: node.position.x, y: node.position.y + Float(translation), z: node.position.z)
     }
     
     @IBAction func moveXPressed(_ sender: UIButton) {

@@ -11,10 +11,10 @@ import UIKit
 class Maze: NSObject {
     var start = (0, 0)
     var end = (0, 0)
-    var invalid = [Int: [Int]]()
+    var invalid = [Int: Set<Int>]()
     var startFacing:Direction = .north
     
-    init(dictionary: [Int: [Int]]) {
+    init(dictionary: [Int: Set<Int>]) {
         invalid = dictionary
         super.init()
     }

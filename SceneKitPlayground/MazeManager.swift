@@ -21,8 +21,7 @@ class MazeManager: NSObject {
     var delegate: NetworkViewControllerProtocol!
     let dataManager = DataManager.sharedInstance
     var maze = Maze(dictionary: [:])
-    var mazeArray = [Maze]()
-    var tileArray = [[TileObject](),
+    var mazeArray = [[TileObject](),
                      [TileObject](),
                      [TileObject](),
                      [TileObject](),
@@ -34,91 +33,104 @@ class MazeManager: NSObject {
                      [TileObject]()]
     
     func setUp() {
-        createMazeArray()
-        let number = arc4random_uniform(UInt32(mazeArray.count))
-        maze = mazeArray[Int(number)]
+        createMaze()
         getImages()
     }
     
-    func createMazeArray() {
-        let maze0 = Maze(dictionary: [
-            0: [4, 5, 6, 7, 8],
-            1: [1, 2, 6],
-            2: [1, 2, 3, 4, 6, 8],
-            3: [4, 8],
-            4: [0, 2, 4, 6],
-            5: [2, 6, 7],
-            6: [1, 2, 4, 6, 7, 8],
-            7: [1, 4, 7],
-            8: [1, 3, 4, 6, 8],
-            9: [1, 6]
-            ])
-        maze0.start = (0, 9)
-        maze0.end = (9, 0)
-        maze0.startFacing = .north
-        mazeArray.append(maze0)
-        
-        let maze1 = Maze(dictionary: [
-            1: [0, 1, 2, 4, 5, 6, 7, 8],
-            2: [2, 4, 8],
-            3: [1, 2, 4, 5, 6, 8],
-            4: [8],
-            5: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-            6: [0, 5],
-            7: [0, 2, 3, 4, 5, 7, 8],
-            8: [0, 7],
-            9: [0, 1, 2, 3, 5, 6, 7, 8, 9]
-            ])
-        maze1.start = (4, 9)
-        maze1.end = (0, 0)
-        maze1.startFacing = .north
-        mazeArray.append(maze1)
-        
-        let maze2 = Maze(dictionary: [
-            0: [3, 7],
-            1: [1, 3, 5, 7, 9],
-            3: [0, 1, 3, 5, 6, 7, 8, 9],
-            4: [3],
-            5: [1, 3, 5, 7, 9],
-            7: [0, 1, 3, 4, 5, 7, 9],
-            8: [7],
-            9: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-            ])
-        maze2.start = (0, 9)
-        maze2.end = (9, 0)
-        maze2.startFacing = .north
-        mazeArray.append(maze2)
-        
-        let maze3 = Maze(dictionary: [
-            0: [3, 4, 5, 6, 7],
-            1: [1, 3, 9],
-            2: [1, 3, 6, 8, 9],
-            3: [1, 3, 4, 6],
-            4: [6],
-            5: [1],
-            6: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-            7: [3, 7],
-            9: [3, 7]
-            ])
-        maze3.start = (5, 8)
-        maze3.end = (9, 0)
-        maze3.startFacing = .north
-        mazeArray.append(maze3)
-        
-        let maze4 = Maze(dictionary: [
-            1: [1, 2, 4, 6, 7, 9],
-            2: [1, 7, 9],
-            3: [3, 5, 9],
-            4: [1, 5, 7, 9],
-            5: [3, 4, 5, 7, 9],
-            6: [1, 9],
-            7: [1, 2, 4, 5, 7, 9],
-            9: [0, 1, 2, 3, 4, 5, 6, 7]
-            ])
-        maze4.start = (9, 9)
-        maze4.end = (4, 4)
-        maze4.startFacing = .north
-        mazeArray.append(maze4)
+    func createMaze() {
+        let random = arc4random_uniform(UInt32(5))
+        switch random {
+        case 0:
+            maze = Maze(dictionary: [
+                0: [4, 5, 6, 7, 8],
+                1: [1, 2, 6],
+                2: [1, 2, 3, 4, 6, 8],
+                3: [4, 8],
+                4: [0, 2, 4, 6],
+                5: [2, 6, 7],
+                6: [1, 2, 4, 6, 7, 8],
+                7: [1, 4, 7],
+                8: [1, 3, 4, 6, 8],
+                9: [1, 6]
+                ])
+            maze.start = (0, 9)
+            maze.end = (9, 0)
+            maze.startFacing = .north
+        case 1:
+            maze = Maze(dictionary: [
+                1: [0, 1, 2, 4, 5, 6, 7, 8],
+                2: [2, 4, 8],
+                3: [1, 2, 4, 5, 6, 8],
+                4: [8],
+                5: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                6: [0, 5],
+                7: [0, 2, 3, 4, 5, 7, 8],
+                8: [0, 7],
+                9: [0, 1, 2, 3, 5, 6, 7, 8, 9]
+                ])
+            maze.start = (4, 9)
+            maze.end = (0, 0)
+            maze.startFacing = .north
+        case 2:
+            maze = Maze(dictionary: [
+                0: [3, 7],
+                1: [1, 3, 5, 7, 9],
+                3: [0, 1, 3, 5, 6, 7, 8, 9],
+                4: [3],
+                5: [1, 3, 5, 7, 9],
+                7: [0, 1, 3, 4, 5, 7, 9],
+                8: [7],
+                9: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                ])
+            maze.start = (0, 9)
+            maze.end = (9, 0)
+            maze.startFacing = .north
+        case 3:
+            maze = Maze(dictionary: [
+                0: [3, 4, 5, 6, 7],
+                1: [1, 3, 9],
+                2: [1, 3, 6, 8, 9],
+                3: [1, 3, 4, 6],
+                4: [6],
+                5: [1],
+                6: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                7: [3, 7],
+                9: [3, 7]
+                ])
+            maze.start = (5, 8)
+            maze.end = (9, 0)
+            maze.startFacing = .north
+        case 4:
+            maze = Maze(dictionary: [
+                1: [1, 2, 4, 6, 7, 9],
+                2: [1, 7, 9],
+                3: [3, 5, 9],
+                4: [1, 5, 7, 9],
+                5: [3, 4, 5, 7, 9],
+                6: [1, 9],
+                7: [1, 2, 4, 5, 7, 9],
+                9: [0, 1, 2, 3, 4, 5, 6, 7]
+                ])
+            maze.start = (9, 9)
+            maze.end = (4, 4)
+            maze.startFacing = .north
+        default:
+            maze = Maze(dictionary: [
+                0: [4, 5, 6, 7, 8],
+                1: [1, 2, 6],
+                2: [1, 2, 3, 4, 6, 8],
+                3: [4, 8],
+                4: [0, 2, 4, 6],
+                5: [2, 6, 7],
+                6: [1, 2, 4, 6, 7, 8],
+                7: [1, 4, 7],
+                8: [1, 3, 4, 6, 8],
+                9: [1, 6]
+                ])
+            maze.start = (0, 9)
+            maze.end = (9, 0)
+            maze.startFacing = .north
+        }
     }
 }
 
@@ -159,12 +171,12 @@ extension MazeManager {
                 
                 var zIndex = 0
                 for index in 0...99 {
-                    if self.tileArray[zIndex].count > 9 {
+                    if self.mazeArray[zIndex].count > 9 {
                         zIndex += 1
                     }
                     
                     let tile = self.generateTileWithDictionary(photoArray[index])
-                    self.tileArray[zIndex].append(tile)
+                    self.mazeArray[zIndex].append(tile)
                     DispatchQueue.main.async {
                         self.delegate.updateProgress()
                     }

@@ -14,7 +14,7 @@ class DataManager: NSObject {
     static let sharedInstance = DataManager()
     private override init() {}
 
-    var persistentContainer: NSPersistentContainer = {
+    lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -61,5 +61,10 @@ class DataManager: NSObject {
     func generateTileObject() -> TileObject {
         let tile = NSEntityDescription.insertNewObject(forEntityName: "TileObject", into: persistentContainer.viewContext) as! TileObject
         return tile
+    }
+    
+    func generatePlayer() -> PlayerObject {
+        let player = NSEntityDescription.insertNewObject(forEntityName: "PlayerObject", into: persistentContainer.viewContext) as! PlayerObject
+        return player
     }
 }

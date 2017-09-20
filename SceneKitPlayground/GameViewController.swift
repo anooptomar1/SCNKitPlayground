@@ -12,34 +12,50 @@ import SceneKit
 
 class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     let mazeManager = MazeManager.sharedInstance
+    let gameManager = GameManager.sharedInstance
+    
+    //SceneKit Properties
+    @IBOutlet weak var sceneView: SCNView!
     let scene = SCNScene()
     let cameraNode = SCNNode()
     var lookGesture: UIPanGestureRecognizer!
     var cameraElevation: Float = 0
     var cameraDirection: Float = 0
-    @IBOutlet weak var sceneView: SCNView!
+    let size: Float = 5
+    
+    //TableView Properties
+    var titlesArray = [TileObject]()
+    @IBOutlet weak var titlesTableView: UITableView!
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
-    }
-    
+    //    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    //        if UIDevice.current.userInterfaceIdiom == .phone {
+    //            return .allButUpsideDown
+    //        } else {
+    //            return .all
+    //        }
+    //    }
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set up scene
         setUpSceneView()
         setUpCamera()
         setUpLight()
+        
+        //set up maze
         createMaze()
         createBorders()
         // createSky()
         createGround()
+        
+        //set up game
+        gameManager.startGame()
+        populateTableView()
     }
     
     func setUpSceneView() {
@@ -62,7 +78,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         let maze = mazeManager.maze
         let startX = Float(maze.start.0)
         let startZ = Float(maze.start.1)
-        cameraNode.position = SCNVector3(x: startX*5, y: 0, z: startZ*5)
+        cameraNode.position = SCNVector3(x: startX*size, y: 0, z: startZ*size)
         cameraDirection = Float.pi/2 * Float(maze.startFacing.rawValue)
         cameraElevation = cameraNode.orientation.x
         cameraNode.eulerAngles = SCNVector3(x: cameraElevation, y: cameraDirection, z: 0)
@@ -93,7 +109,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func createWall() -> SCNNode {
-        let geometry = SCNBox(width: 5, height: 3, length: 5, chamferRadius: 0.05)
+        let geometry = SCNBox(width: CGFloat(size), height: 3, length: CGFloat(size), chamferRadius: 0.05)
         return SCNNode(geometry: geometry)
     }
     
@@ -106,7 +122,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
                     material.diffuse.contents = UIImage(named: "hedge")
                     let wall = createWall()
                     wall.geometry?.materials = [material]
-                    wall.position = SCNVector3(x: (Float(xIndex))*5, y: 0, z: (Float(zIndex))*5)
+                    wall.position = SCNVector3(x: (Float(xIndex))*size, y: 0, z: (Float(zIndex))*size)
                     scene.rootNode.addChildNode(wall)
                 }
             }
@@ -119,22 +135,22 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         
         for index in -1...10 {
             let borderWallZ = createWall()
-            borderWallZ.position = SCNVector3(x: -5, y: 0, z: Float(index)*5)
+            borderWallZ.position = SCNVector3(x: -size, y: 0, z: Float(index)*size)
             borderWallZ.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallZ)
             
             let borderWallZ2 = createWall()
-            borderWallZ2.position = SCNVector3(x: 50, y: 0, z: Float(index)*5)
+            borderWallZ2.position = SCNVector3(x: 10 * size, y: 0, z: Float(index)*size)
             borderWallZ2.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallZ2)
             
             let borderWallX = createWall()
-            borderWallX.position = SCNVector3(x: Float(index)*5, y: 0, z: -5)
+            borderWallX.position = SCNVector3(x: Float(index)*size, y: 0, z: -size)
             borderWallX.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallX)
             
             let borderWallX2 = createWall()
-            borderWallX2.position = SCNVector3(x: Float(index)*5, y: 0, z: 50)
+            borderWallX2.position = SCNVector3(x: Float(index)*size, y: 0, z: 10 * size)
             borderWallX2.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallX2)
         }
@@ -153,13 +169,13 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     func createGround() {
         for xIndex in 0...9 {
             for zIndex in 0...9 {
-                let tile = mazeManager.tileArray[xIndex][zIndex]
+                let tile = mazeManager.mazeArray[xIndex][zIndex]
                 let material = SCNMaterial()
                 let image = UIImage(data: tile.image! as Data)
                 material.diffuse.contents = image
                 let wall = createWall()
                 wall.geometry?.materials = [material]
-                wall.position = SCNVector3(x: (Float(xIndex))*5, y: -3, z: (Float(zIndex))*5)
+                wall.position = SCNVector3(x: (Float(xIndex))*size, y: -3, z: (Float(zIndex))*size)
                 scene.rootNode.addChildNode(wall)
             }
         }
@@ -185,11 +201,10 @@ extension GameViewController {
             let result: AnyObject = hitResults[0]
             let node = result.node!
             
-            
             let xPosition = node.position.x
             let zPosition = node.position.z
-        
-            if mazeManager.checkValid(x: Int(xPosition/5), z: Int(zPosition/5)) {
+            
+            if mazeManager.checkValid(x: Int(xPosition/size), z: Int(zPosition/size)) {
                 moveNodeIntoView(node: node)
             }
         }
@@ -213,7 +228,7 @@ extension GameViewController {
         //east
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x+5, y: position.y, z: position.z), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x+self.size, y: position.y, z: position.z), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }
@@ -222,7 +237,7 @@ extension GameViewController {
         //west
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x-5, y: position.y, z: position.z), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x-self.size, y: position.y, z: position.z), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }
@@ -247,7 +262,7 @@ extension GameViewController {
         //south
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+5), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+self.size), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
     }
@@ -256,8 +271,65 @@ extension GameViewController {
         //north
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-5), duration: 1)
+            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-self.size), duration: 1)
             self.cameraNode.runAction(moveTo)
         })
+    }
+}
+
+extension GameViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return titlesArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! TitleCell
+        let tile = titlesArray[indexPath.row]
+        var title = tile.title
+        if title == nil || title == "" {
+            title = "Unnamed"
+        }
+        
+        cell.titleLabel.text = title!
+        cell.tile = tile
+        return cell
+    }
+    
+    func populateTableView() {
+        titlesArray = gameManager.getSurroundingTileTitles()
+        DispatchQueue.main.async {
+            self.titlesTableView.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! TitleCell
+        if let direction = gameManager.surroundingTilesDictionary[cell.tile] {
+            tableView.isUserInteractionEnabled = false
+            let position = self.cameraNode.position
+            var moveTo: SCNAction
+            switch direction {
+            case .north:
+                gameManager.movePlayerNorth()
+                moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-self.size), duration: 1)
+            case .south:
+                gameManager.movePlayerSouth()
+                moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+self.size), duration: 1)
+            case .west:
+                gameManager.movePlayerWest()
+                moveTo = SCNAction.move(to: SCNVector3(x: position.x-self.size, y: position.y, z: position.z), duration: 1)
+            case .east:
+                gameManager.movePlayerEast()
+                moveTo = SCNAction.move(to: SCNVector3(x: position.x+self.size, y: position.y, z: position.z), duration: 1)
+            }
+            self.cameraNode.runAction(moveTo, completionHandler: {
+                tableView.isUserInteractionEnabled = true
+                self.populateTableView()
+            })
+        }
     }
 }

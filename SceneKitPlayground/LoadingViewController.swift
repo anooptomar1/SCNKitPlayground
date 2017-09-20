@@ -38,6 +38,5 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
     
     func updateProgress() {
             progressView.progress += 0.01
-        print(progressView.progress)
     }
 }

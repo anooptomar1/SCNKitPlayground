@@ -19,6 +19,8 @@
 		896F1B441F6F577100E5A412 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896F1B431F6F577100E5A412 /* CoreData.framework */; };
 		896F1B461F6F5C9B00E5A412 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */; };
 		896F1B4B1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 896F1B491F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld */; };
+		89F3967C1F729C5D00FF8589 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3967B1F729C5D00FF8589 /* GameManager.swift */; };
+		89F3967E1F72F7ED00FF8589 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3967D1F72F7ED00FF8589 /* TitleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		896F1B401F6F52C500E5A412 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		896F1B431F6F577100E5A412 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		896F1B4A1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlickrMaze3D.xcdatamodel; sourceTree = "<group>"; };
+		89F3967B1F729C5D00FF8589 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		89F3967D1F72F7ED00FF8589 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +78,11 @@
 				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
 				896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */,
 				891D53721F5EF57200533E8F /* MazeManager.swift */,
+				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
 				896F1B401F6F52C500E5A412 /* Protocols.swift */,
 				891D53701F5EF44000533E8F /* Maze.swift */,
 				896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */,
+				89F3967D1F72F7ED00FF8589 /* TitleCell.swift */,
 				896F1B491F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld */,
 				891D53621F5E3A7B00533E8F /* Main.storyboard */,
 				891D53651F5E3A7B00533E8F /* Assets.xcassets */,
@@ -168,6 +174,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				896F1B4B1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld in Sources */,
+				89F3967C1F729C5D00FF8589 /* GameManager.swift in Sources */,
+				89F3967E1F72F7ED00FF8589 /* TitleCell.swift in Sources */,
 				896F1B3F1F6F515200E5A412 /* LoadingViewController.swift in Sources */,
 				896F1B461F6F5C9B00E5A412 /* DataManager.swift in Sources */,
 				891D53731F5EF57200533E8F /* MazeManager.swift in Sources */,

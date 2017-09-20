@@ -162,10 +162,10 @@ extension MazeManager {
                     if self.tileArray[zIndex].count > 9 {
                         zIndex += 1
                     }
-
+                    
                     let tile = self.generateTileWithDictionary(photoArray[index])
                     self.tileArray[zIndex].append(tile)
-
+                    
                 }
                 DispatchQueue.main.async {
                     self.delegate.callSucceeded()
@@ -189,5 +189,24 @@ extension MazeManager {
         tile.image = data
         tile.title = dict["title"] as? String
         return tile
+    }
+    
+    func checkValid(x: Int, z: Int) -> Bool {
+        var invalidDict = maze.invalid
+        if invalidDict.keys.contains(z) {
+            let xSet = invalidDict[z]!
+            if xSet.contains(x) {
+                return false
+            }
+        }
+        
+        //check if it is a border
+        if x < 0 ||
+            x > 9 ||
+            z < 0 ||
+            z > 9 {
+            return false
+        }
+        return true
     }
 }

@@ -100,7 +100,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     func createMaze() {
         let dict = mazeManager.maze.invalid
         for zIndex in 0...9 {
-                if let array = dict[zIndex] {
+            if let array = dict[zIndex] {
                 for xIndex in array {
                     let material = SCNMaterial()
                     material.diffuse.contents = UIImage(named: "hedge")
@@ -112,7 +112,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
-
+    
     func createBorders() {
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "cliff")
@@ -176,27 +176,29 @@ extension GameViewController {
     }
     
     func tapInView(_ sender: UIGestureRecognizer) {
-        
         // check what nodes are tapped
-        let p = sender.location(in: sceneView)
-        let hitResults = sceneView.hitTest(p, options: [:])
+        let position = sender.location(in: sceneView)
+        let hitResults = sceneView.hitTest(position, options: [:])
         // check that we clicked on at least one object
         if hitResults.count > 0 {
             // retrieved the first clicked object
             let result: AnyObject = hitResults[0]
             let node = result.node!
-            moveNodeIntoView(node: node)
+            
+            
+            let xPosition = node.position.x
+            let zPosition = node.position.z
+        
+            if mazeManager.checkValid(x: Int(xPosition/5), z: Int(zPosition/5)) {
+                moveNodeIntoView(node: node)
+            }
         }
     }
     
     func moveNodeIntoView(node: SCNNode) {
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 1.0
-        var translation = 0
-        if node.position.y >= 0 {
-            translation = -3
-        }
-        node.position = SCNVector3(x: node.position.x, y: Float(translation), z: node.position.z)
+        node.position = SCNVector3(x: node.position.x, y: 0, z: node.position.z)
         
         SCNTransaction.completionBlock = {
             SCNTransaction.begin()
@@ -204,7 +206,6 @@ extension GameViewController {
             node.position = SCNVector3(x: node.position.x, y: -3, z: node.position.z)
             SCNTransaction.commit()
         }
-
         SCNTransaction.commit()
     }
     
@@ -225,7 +226,7 @@ extension GameViewController {
             self.cameraNode.runAction(moveTo)
         })
     }
-
+    
     @IBAction func moveYPressed(_ sender: UIButton) {
         UIView.animate(withDuration: 1, animations: {
             let position = self.cameraNode.position
@@ -241,7 +242,7 @@ extension GameViewController {
             self.cameraNode.runAction(moveTo)
         })
     }
-
+    
     @IBAction func moveZPressed(_ sender: UIButton) {
         //south
         UIView.animate(withDuration: 1, animations: {
@@ -259,5 +260,4 @@ extension GameViewController {
             self.cameraNode.runAction(moveTo)
         })
     }
-
 }

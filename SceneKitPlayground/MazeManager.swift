@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum Direction: Int {
-    case north = 0
-    case west = 1
-    case south = 2
-    case east = 3
-}
-
 class MazeManager: NSObject {
     static let sharedInstance = MazeManager()
     private override init() {}
@@ -205,22 +198,24 @@ extension MazeManager {
         return tile
     }
     
-    func checkValid(x: Int, z: Int) -> Bool {
+    func checkWall(x: Int, z: Int) -> Bool {
         var invalidDict = maze.invalid
         if invalidDict.keys.contains(z) {
             let xSet = invalidDict[z]!
             if xSet.contains(x) {
-                return false
+                return true
             }
         }
-        
-        //check if it is a border
+        return false
+    }
+    
+    func checkBorder(x: Int, z: Int) -> Bool{
         if x < 0 ||
             x > 9 ||
             z < 0 ||
             z > 9 {
-            return false
+            return true
         }
-        return true
+        return false
     }
 }

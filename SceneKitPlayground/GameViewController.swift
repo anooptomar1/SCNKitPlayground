@@ -201,10 +201,10 @@ extension GameViewController {
             let result: AnyObject = hitResults[0]
             let node = result.node!
             
-            let xPosition = node.position.x
-            let zPosition = node.position.z
+            let xPosition = Int(node.position.x/size)
+            let zPosition = Int(node.position.z/size)
             
-            if mazeManager.checkValid(x: Int(xPosition/size), z: Int(zPosition/size)) {
+            if !mazeManager.checkWall(x: xPosition, z: zPosition) && !mazeManager.checkBorder(x: xPosition, z: zPosition) {
                 moveNodeIntoView(node: node)
             }
         }
@@ -293,7 +293,6 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
         if title == nil || title == "" {
             title = "Unnamed"
         }
-        
         cell.titleLabel.text = title!
         cell.tile = tile
         return cell
@@ -311,7 +310,7 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
         if let direction = gameManager.surroundingTilesDictionary[cell.tile] {
             tableView.isUserInteractionEnabled = false
             let position = self.cameraNode.position
-            var moveTo: SCNAction
+            var moveTo: SCNAction?
             switch direction {
             case .north:
                 gameManager.movePlayerNorth()
@@ -325,11 +324,17 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
             case .east:
                 gameManager.movePlayerEast()
                 moveTo = SCNAction.move(to: SCNVector3(x: position.x+self.size, y: position.y, z: position.z), duration: 1)
-            }
-            self.cameraNode.runAction(moveTo, completionHandler: {
+            case .none:
+                moveTo = nil
                 tableView.isUserInteractionEnabled = true
                 self.populateTableView()
-            })
+            }
+            if moveTo != nil {
+                self.cameraNode.runAction(moveTo!, completionHandler: {
+                    tableView.isUserInteractionEnabled = true
+                    self.populateTableView()
+                })
+            }
         }
     }
 }

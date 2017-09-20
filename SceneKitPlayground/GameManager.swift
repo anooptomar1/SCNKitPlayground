@@ -31,20 +31,36 @@ class GameManager: NSObject {
         surroundingTilesDictionary.removeAll()
         let tiles = mazeManager.mazeArray
         
-        if mazeManager.checkValid(x: x, z: z-1) {
-            surroundingTilesDictionary.updateValue(.north, forKey: tiles[x][z-1])
+        if !mazeManager.checkBorder(x: x, z: z-1) {
+            if !mazeManager.checkWall(x: x, z: z-1) {
+                surroundingTilesDictionary.updateValue(.north, forKey: tiles[x][z-1])
+            } else {
+                surroundingTilesDictionary.updateValue(.none, forKey: tiles[x][z-1])
+            }
         }
         
-        if mazeManager.checkValid(x: x, z: z+1) {
-            surroundingTilesDictionary.updateValue(.south, forKey: tiles[x][z+1])
+        if !mazeManager.checkBorder(x: x, z: z+1) {
+            if !mazeManager.checkWall(x: x, z: z+1) {
+                surroundingTilesDictionary.updateValue(.south, forKey: tiles[x][z+1])
+            } else {
+                surroundingTilesDictionary.updateValue(.none, forKey: tiles[x][z+1])
+            }
         }
         
-        if mazeManager.checkValid(x: x-1, z: z) {
-            surroundingTilesDictionary.updateValue(.west, forKey: tiles[x-1][z])
+        if !mazeManager.checkBorder(x: x-1, z: z) {
+            if !mazeManager.checkWall(x: x-1, z: z) {
+                surroundingTilesDictionary.updateValue(.west, forKey: tiles[x-1][z])
+            } else {
+                surroundingTilesDictionary.updateValue(.none, forKey: tiles[x-1][z])
+            }
         }
-        
-        if mazeManager.checkValid(x: x+1, z: z) {
-            surroundingTilesDictionary.updateValue(.east, forKey: tiles[x+1][z])
+
+        if !mazeManager.checkBorder(x: x+1, z: z) {
+            if !mazeManager.checkWall(x: x+1, z: z) {
+                surroundingTilesDictionary.updateValue(.east, forKey: tiles[x+1][z])
+            } else {
+                surroundingTilesDictionary.updateValue(.none, forKey: tiles[x+1][z])
+            }
         }
     }
     

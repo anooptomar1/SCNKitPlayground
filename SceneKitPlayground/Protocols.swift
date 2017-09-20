@@ -11,4 +11,5 @@ import Foundation
 protocol NetworkViewControllerProtocol {
     func callSucceeded()
     func callFailed()
+    func updateProgress()
 }

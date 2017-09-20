@@ -165,7 +165,9 @@ extension MazeManager {
                     
                     let tile = self.generateTileWithDictionary(photoArray[index])
                     self.tileArray[zIndex].append(tile)
-                    
+                    DispatchQueue.main.async {
+                        self.delegate.updateProgress()
+                    }
                 }
                 DispatchQueue.main.async {
                     self.delegate.callSucceeded()

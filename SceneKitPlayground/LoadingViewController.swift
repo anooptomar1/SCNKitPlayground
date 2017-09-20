@@ -10,6 +10,7 @@ import UIKit
 
 class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
 
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
         let mazeManager = MazeManager.sharedInstance
         mazeManager.delegate = self
         mazeManager.setUp()
+        progressView.progress = 0
         // Do any additional setup after loading the view.
     }
 
@@ -32,5 +34,10 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
     
     func callFailed() {
         
+    }
+    
+    func updateProgress() {
+            progressView.progress += 0.01
+        print(progressView.progress)
     }
 }

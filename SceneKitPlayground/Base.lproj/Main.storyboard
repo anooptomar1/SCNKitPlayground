@@ -62,7 +62,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iai-um-QxO">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="491"/>
+                                <rect key="frame" x="0.0" y="30" width="375" height="461"/>
                             </sceneKitView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="klI-a3-Dqi">
                                 <rect key="frame" x="0.0" y="491" width="375" height="176"/>
@@ -105,20 +105,50 @@
                                     <outlet property="delegate" destination="dze-Qf-NST" id="eyG-an-dEU"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqT-Cx-7FW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcZ-OL-m7V">
+                                        <rect key="frame" x="8" y="4.5" width="44" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4v-BD-CZV">
+                                        <rect key="frame" x="329" y="4.5" width="38" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="XcZ-OL-m7V" firstAttribute="leading" secondItem="vqT-Cx-7FW" secondAttribute="leading" constant="8" id="6Ww-hm-qQA"/>
+                                    <constraint firstItem="XcZ-OL-m7V" firstAttribute="centerY" secondItem="vqT-Cx-7FW" secondAttribute="centerY" id="B8J-ZM-Hnd"/>
+                                    <constraint firstAttribute="trailing" secondItem="P4v-BD-CZV" secondAttribute="trailing" constant="8" id="EYC-dB-5Gj"/>
+                                    <constraint firstAttribute="height" constant="30" id="Ql8-nc-M4e"/>
+                                    <constraint firstItem="P4v-BD-CZV" firstAttribute="centerY" secondItem="vqT-Cx-7FW" secondAttribute="centerY" id="R2V-Jb-NqE"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="vqT-Cx-7FW" secondAttribute="trailing" id="7YA-SD-iHU"/>
                             <constraint firstItem="Iai-um-QxO" firstAttribute="leading" secondItem="BUY-Mt-Rp4" secondAttribute="leading" id="Biz-QK-5C5"/>
                             <constraint firstItem="klI-a3-Dqi" firstAttribute="top" secondItem="Iai-um-QxO" secondAttribute="bottom" id="CO3-Q1-E20"/>
                             <constraint firstItem="mcO-Uk-o0Z" firstAttribute="top" secondItem="klI-a3-Dqi" secondAttribute="bottom" id="VxP-gq-BfB"/>
+                            <constraint firstItem="vqT-Cx-7FW" firstAttribute="top" secondItem="BUY-Mt-Rp4" secondAttribute="top" id="Wrx-71-kY0"/>
                             <constraint firstAttribute="trailing" secondItem="klI-a3-Dqi" secondAttribute="trailing" id="XAJ-ub-g8Q"/>
-                            <constraint firstItem="Iai-um-QxO" firstAttribute="top" secondItem="BUY-Mt-Rp4" secondAttribute="top" id="XcV-0G-Xv5"/>
+                            <constraint firstItem="Iai-um-QxO" firstAttribute="top" secondItem="BUY-Mt-Rp4" secondAttribute="top" constant="30" id="XcV-0G-Xv5"/>
                             <constraint firstItem="klI-a3-Dqi" firstAttribute="leading" secondItem="BUY-Mt-Rp4" secondAttribute="leading" id="eVd-B7-FUE"/>
                             <constraint firstAttribute="trailing" secondItem="Iai-um-QxO" secondAttribute="trailing" id="rEe-9X-Mdl"/>
+                            <constraint firstItem="vqT-Cx-7FW" firstAttribute="leading" secondItem="BUY-Mt-Rp4" secondAttribute="leading" id="vRj-Dn-Y8R"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="Iai-um-QxO" id="ytW-Ov-uJv"/>
+                        <outlet property="stepLabel" destination="XcZ-OL-m7V" id="LTl-vb-lBb"/>
+                        <outlet property="timeLabel" destination="P4v-BD-CZV" id="GBd-i2-Gsk"/>
                         <outlet property="titlesTableView" destination="klI-a3-Dqi" id="VTA-HS-WB8"/>
                     </connections>
                 </viewController>

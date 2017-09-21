@@ -9,21 +9,22 @@
 import UIKit
 
 class GameManager: NSObject {
-    static let sharedInstance = GameManager()
-    private override init() {}
-    
+
     let mazeManager = MazeManager.sharedInstance
     let dataManager = DataManager.sharedInstance
     var player: PlayerObject!
     var surroundingTilesDictionary = [TileObject: Direction]()
+    
     func startGame() {
         player = dataManager.generatePlayer()
         player.xPosition = Int16(mazeManager.maze.start.0)
         player.zPosition = Int16(mazeManager.maze.start.1)
+        player.steps = 0
     }
     
     func getSurroundingTileTitles() -> [TileObject] {
         getSurroundingTiles(x: Int(player.xPosition), z: Int(player.zPosition))
+        print(surroundingTilesDictionary.keys.count)
         return randomizeSurrounding()
     }
     

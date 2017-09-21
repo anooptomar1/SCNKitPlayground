@@ -22,6 +22,7 @@
 		89F3967C1F729C5D00FF8589 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3967B1F729C5D00FF8589 /* GameManager.swift */; };
 		89F3967E1F72F7ED00FF8589 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3967D1F72F7ED00FF8589 /* TitleCell.swift */; };
 		89F396821F730C7800FF8589 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F396811F730C7800FF8589 /* Enums.swift */; };
+		89F396841F74547F00FF8589 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F396831F74547F00FF8589 /* TimeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		89F3967B1F729C5D00FF8589 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		89F3967D1F72F7ED00FF8589 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		89F396811F730C7800FF8589 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		89F396831F74547F00FF8589 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			children = (
 				891D535C1F5E3A7B00533E8F /* AppDelegate.swift */,
 				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
+				89F396831F74547F00FF8589 /* TimeManager.swift */,
 				896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */,
 				891D53721F5EF57200533E8F /* MazeManager.swift */,
 				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
@@ -178,6 +181,7 @@
 			files = (
 				896F1B4B1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld in Sources */,
 				89F3967C1F729C5D00FF8589 /* GameManager.swift in Sources */,
+				89F396841F74547F00FF8589 /* TimeManager.swift in Sources */,
 				89F3967E1F72F7ED00FF8589 /* TitleCell.swift in Sources */,
 				896F1B3F1F6F515200E5A412 /* LoadingViewController.swift in Sources */,
 				896F1B461F6F5C9B00E5A412 /* DataManager.swift in Sources */,

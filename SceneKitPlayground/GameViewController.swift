@@ -12,8 +12,13 @@ import SceneKit
 
 class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     let mazeManager = MazeManager.sharedInstance
-    let gameManager = GameManager.sharedInstance
+    let gameManager = GameManager()
     
+    var timer = Timer()
+    let timeManager = TimeManager()
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var stepLabel: UILabel!
     //SceneKit Properties
     @IBOutlet weak var sceneView: SCNView!
     let scene = SCNScene()
@@ -55,6 +60,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //set up game
         gameManager.startGame()
+        startTimer()
         populateTableView()
     }
     
@@ -94,7 +100,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = UIColor.darkGray
+        ambientLightNode.light!.color = UIColor.white
         scene.rootNode.addChildNode(ambientLightNode)
     }
     
@@ -277,6 +283,17 @@ extension GameViewController {
     }
 }
 
+extension GameViewController {
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimerLabel), userInfo: nil, repeats: true)
+    }
+    
+    func updateTimerLabel() {
+        timeManager.addTime(timeInterval: timer.timeInterval)
+        timeLabel.text = timeManager.getTimeString()
+    }
+}
+
 extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -336,5 +353,7 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
                 })
             }
         }
+        gameManager.player.steps += 1
+        stepLabel.text = "Steps: \(gameManager.player.steps)"
     }
 }

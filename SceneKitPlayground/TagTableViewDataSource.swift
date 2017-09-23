@@ -10,8 +10,8 @@ import UIKit
 
 class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    var tagSet = Set<String>()
-    var tagArray = [String]()
+    let mazeManager = MazeManager.sharedInstance
+    var sortedTagArray = [String]()
     var tableView: UITableView!
     var cellArray = [TagTableViewCell]()
     var tagHeight: CGFloat = 150
@@ -21,12 +21,12 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tagArray.count
+        return sortedTagArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tagTableViewCell", for: indexPath) as! TagTableViewCell
-        let tag = tagArray[indexPath.row]
+        let tag = sortedTagArray[indexPath.row]
         cell.nameLabel.text = tag
         cellArray.append(cell)
         return cell
@@ -39,29 +39,35 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
         return 44
     }
     
+    func setUp() {
+        let tagArray = Array(mazeManager.options.tags.keys)
+        sortedTagArray = tagArray.sorted {
+            $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending
+        }
+    }
+    
     func addTag(_ tag: String) {
         if tag == "" {
             return
         }
 
-        if !tagSet.contains(tag) {
-            tagSet.insert(tag)
-            tagArray = Array(tagSet)
-            tagArray = tagArray.sorted {
+        if !mazeManager.options.tags.keys.contains(tag) {
+            mazeManager.options.tags.updateValue(true, forKey: tag)
+            sortedTagArray = Array(mazeManager.options.tags.keys)
+            sortedTagArray = sortedTagArray.sorted {
                 $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending
             }
-            let index = tagArray.index(of: tag) ?? 0
+            let index = sortedTagArray.index(of: tag) ?? 0
             let indexPath = IndexPath(item: index, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
     }
     
-    func getTagArray() -> [String] {
-        var tags = [String]()
+    func getTagArray() -> [String: Bool] {
+        var tags = [String: Bool]()
         for cell in cellArray {
-            if cell.onSwitch.isOn {
-                tags.append(cell.nameLabel.text ?? "")
-            }
+            let isOn = cell.onSwitch.isOn
+            tags.updateValue(isOn, forKey: cell.nameLabel.text ?? "No name")
         }
         return tags
     }    

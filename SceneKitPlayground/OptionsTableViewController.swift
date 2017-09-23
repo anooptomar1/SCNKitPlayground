@@ -11,12 +11,15 @@ import UIKit
 class OptionsTableViewController: UITableViewController {
     
     @IBOutlet weak var tagTableView: UITableView!
-    let tagTableViewDataSource = TagTableViewDataSource()
     @IBOutlet weak var tagTextField: UITextField!
+    
+    let tagTableViewDataSource = TagTableViewDataSource()
+    let mazeManager = MazeManager.sharedInstance
     
     @IBOutlet weak var curatedListSwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tagTableViewDataSource.setUp()
         tagTableView.dataSource = tagTableViewDataSource
         tagTableViewDataSource.tableView = tagTableView
         // Uncomment the following line to preserve selection between presentations
@@ -33,7 +36,7 @@ class OptionsTableViewController: UITableViewController {
     
     @IBAction func curatedListSwitchToggled(_ sender: UISwitch) {
         tableView.beginUpdates()
-        tagTableViewDataSource.tagHeight = 150
+        tagTableViewDataSource.tagHeight = CGFloat(tagTableViewDataSource.sortedTagArray.count * 44)
         if sender.isOn {
             tagTableViewDataSource.tagHeight = 0
         }

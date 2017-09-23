@@ -89,6 +89,7 @@
 				891D535C1F5E3A7B00533E8F /* AppDelegate.swift */,
 				896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */,
 				891D53721F5EF57200533E8F /* MazeManager.swift */,
+				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
 				89F396911F76096300FF8589 /* MazeTile.swift */,
 				89F396901F75816A00FF8589 /* GameViewController */,
 				89F3968F1F75813400FF8589 /* OptionsTableViewController */,
@@ -129,7 +130,6 @@
 				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
 				89F3967D1F72F7ED00FF8589 /* TitleCell.swift */,
 				89F396831F74547F00FF8589 /* TimeManager.swift */,
-				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
 			);
 			name = GameViewController;
 			sourceTree = "<group>";

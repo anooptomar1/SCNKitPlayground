@@ -9,7 +9,7 @@
 import UIKit
 
 struct Options {
-    var tags = [String]()
+    var tags = [String: Bool]()
     var curatedMode = true
 }
 
@@ -141,12 +141,10 @@ extension MazeManager {
         }
         
         var urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo&tags="
-        for index in 0..<options.tags.count {
-            let newTag = options.tags[index].replacingOccurrences(of: " ", with: "+")
-            if index != 0 {
-                urlString += "%2C+"
-            }
-            urlString += newTag
+        
+        for tag in options.tags.keys {
+            let newTag = tag.replacingOccurrences(of: " ", with: "+")
+            urlString += "%2C+\(newTag)"
         }
         print(urlString)
         return URL(string: urlString)!

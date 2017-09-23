@@ -23,6 +23,10 @@
 		89F3967E1F72F7ED00FF8589 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3967D1F72F7ED00FF8589 /* TitleCell.swift */; };
 		89F396821F730C7800FF8589 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F396811F730C7800FF8589 /* Enums.swift */; };
 		89F396841F74547F00FF8589 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F396831F74547F00FF8589 /* TimeManager.swift */; };
+		89F396881F7556D700FF8589 /* OptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F396871F7556D700FF8589 /* OptionsTableViewController.swift */; };
+		89F3968C1F757D8F00FF8589 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3968B1F757D8F00FF8589 /* TagTableViewCell.swift */; };
+		89F3968E1F757E4900FF8589 /* TagTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F3968D1F757E4900FF8589 /* TagTableViewDataSource.swift */; };
+		89F396921F76096300FF8589 /* MazeTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F396911F76096300FF8589 /* MazeTile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,10 @@
 		89F3967D1F72F7ED00FF8589 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		89F396811F730C7800FF8589 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		89F396831F74547F00FF8589 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		89F396871F7556D700FF8589 /* OptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsTableViewController.swift; sourceTree = "<group>"; };
+		89F3968B1F757D8F00FF8589 /* TagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
+		89F3968D1F757E4900FF8589 /* TagTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTableViewDataSource.swift; sourceTree = "<group>"; };
+		89F396911F76096300FF8589 /* MazeTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeTile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,16 +87,15 @@
 			isa = PBXGroup;
 			children = (
 				891D535C1F5E3A7B00533E8F /* AppDelegate.swift */,
-				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
-				89F396831F74547F00FF8589 /* TimeManager.swift */,
 				896F1B3E1F6F515200E5A412 /* LoadingViewController.swift */,
 				891D53721F5EF57200533E8F /* MazeManager.swift */,
-				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
+				89F396911F76096300FF8589 /* MazeTile.swift */,
+				89F396901F75816A00FF8589 /* GameViewController */,
+				89F3968F1F75813400FF8589 /* OptionsTableViewController */,
 				896F1B401F6F52C500E5A412 /* Protocols.swift */,
 				89F396811F730C7800FF8589 /* Enums.swift */,
 				891D53701F5EF44000533E8F /* Maze.swift */,
 				896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */,
-				89F3967D1F72F7ED00FF8589 /* TitleCell.swift */,
 				896F1B491F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld */,
 				891D53621F5E3A7B00533E8F /* Main.storyboard */,
 				891D53651F5E3A7B00533E8F /* Assets.xcassets */,
@@ -104,6 +111,27 @@
 				896F1B431F6F577100E5A412 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		89F3968F1F75813400FF8589 /* OptionsTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				89F396871F7556D700FF8589 /* OptionsTableViewController.swift */,
+				89F3968D1F757E4900FF8589 /* TagTableViewDataSource.swift */,
+				89F3968B1F757D8F00FF8589 /* TagTableViewCell.swift */,
+			);
+			name = OptionsTableViewController;
+			sourceTree = "<group>";
+		};
+		89F396901F75816A00FF8589 /* GameViewController */ = {
+			isa = PBXGroup;
+			children = (
+				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
+				89F3967D1F72F7ED00FF8589 /* TitleCell.swift */,
+				89F396831F74547F00FF8589 /* TimeManager.swift */,
+				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
+			);
+			name = GameViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,15 +207,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89F3968E1F757E4900FF8589 /* TagTableViewDataSource.swift in Sources */,
 				896F1B4B1F6F5F3D00E5A412 /* FlickrMaze3D.xcdatamodeld in Sources */,
 				89F3967C1F729C5D00FF8589 /* GameManager.swift in Sources */,
 				89F396841F74547F00FF8589 /* TimeManager.swift in Sources */,
+				89F396921F76096300FF8589 /* MazeTile.swift in Sources */,
 				89F3967E1F72F7ED00FF8589 /* TitleCell.swift in Sources */,
 				896F1B3F1F6F515200E5A412 /* LoadingViewController.swift in Sources */,
 				896F1B461F6F5C9B00E5A412 /* DataManager.swift in Sources */,
 				891D53731F5EF57200533E8F /* MazeManager.swift in Sources */,
+				89F396881F7556D700FF8589 /* OptionsTableViewController.swift in Sources */,
 				891D53611F5E3A7B00533E8F /* GameViewController.swift in Sources */,
 				891D535D1F5E3A7B00533E8F /* AppDelegate.swift in Sources */,
+				89F3968C1F757D8F00FF8589 /* TagTableViewCell.swift in Sources */,
 				891D53711F5EF44000533E8F /* Maze.swift in Sources */,
 				896F1B411F6F52C500E5A412 /* Protocols.swift in Sources */,
 				89F396821F730C7800FF8589 /* Enums.swift in Sources */,

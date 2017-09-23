@@ -1,18 +1,17 @@
 //
-//  TitleCell.swift
+//  TagTableViewCell.swift
 //  SceneKitPlayground
 //
-//  Created by Minhung Ling on 2017-09-20.
+//  Created by Minhung Ling on 2017-09-22.
 //  Copyright © 2017 Minhung Ling. All rights reserved.
 //
 
 import UIKit
 
-class TitleCell: UITableViewCell {
+class TagTableViewCell: UITableViewCell {
+    @IBOutlet weak var nameLabel: UILabel!
 
-    @IBOutlet weak var titleLabel: UILabel!
-    var tile: MazeTile!
-    
+    @IBOutlet weak var onSwitch: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

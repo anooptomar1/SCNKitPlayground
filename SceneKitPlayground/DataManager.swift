@@ -38,7 +38,6 @@ class DataManager: NSObject {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        print(container.viewContext)
         return container
     }()
     

@@ -13,7 +13,7 @@ class GameManager: NSObject {
     let mazeManager = MazeManager.sharedInstance
     let dataManager = DataManager.sharedInstance
     var player: PlayerObject!
-    var surroundingTilesDictionary = [TileObject: Direction]()
+    var surroundingTilesDictionary = [MazeTile: Direction]()
     
     func startGame() {
         player = dataManager.generatePlayer()
@@ -22,9 +22,8 @@ class GameManager: NSObject {
         player.steps = 0
     }
     
-    func getSurroundingTileTitles() -> [TileObject] {
+    func getSurroundingTileTitles() -> [MazeTile] {
         getSurroundingTiles(x: Int(player.xPosition), z: Int(player.zPosition))
-        print(surroundingTilesDictionary.keys.count)
         return randomizeSurrounding()
     }
     
@@ -65,7 +64,7 @@ class GameManager: NSObject {
         }
     }
     
-    func randomizeSurrounding() -> [TileObject] {
+    func randomizeSurrounding() -> [MazeTile] {
         var surroundingTiles = Array(surroundingTilesDictionary.keys)
         for index in 0..<surroundingTiles.count-1 {
             let randomIndex = Int(arc4random_uniform(UInt32((surroundingTiles.count) - index))) + index

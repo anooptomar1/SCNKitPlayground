@@ -8,22 +8,29 @@
 
 import UIKit
 
+struct Options {
+    var tags = [String]()
+    var curatedMode = true
+}
+
 class MazeManager: NSObject {
     static let sharedInstance = MazeManager()
     private override init() {}
+    
+    var options = Options()
     var delegate: NetworkViewControllerProtocol!
     let dataManager = DataManager.sharedInstance
     var maze = Maze(dictionary: [:])
-    var mazeArray = [[TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject](),
-                     [TileObject]()]
+    var mazeArray = [[MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile](),
+                     [MazeTile]()]
     
     func setUp() {
         createMaze()
@@ -129,15 +136,20 @@ class MazeManager: NSObject {
 
 extension MazeManager {
     func getImageRequestURL() -> URL{
-        var url = URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo")//&tags=")
-        //            if ([self togglePracticeMode]) {
-        //                urlString = [[NSMutableString alloc] initWithString:@"https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=200&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo&tags="];
-        //            }
-        //            NSString *tagWithoutWhiteSpace = [tagEntry stringByReplacingOccurrencesOfString:@" " withString:@""];
-        //            [urlString appendString:tagWithoutWhiteSpace];
-        //            return [NSURL URLWithString:urlString];
-        //        }
-        return url!
+        if options.curatedMode == true {
+            return URL(string: "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=200&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo")!
+        }
+        
+        var urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo&tags="
+        for index in 0..<options.tags.count {
+            let newTag = options.tags[index].replacingOccurrences(of: " ", with: "+")
+            if index != 0 {
+                urlString += "%2C+"
+            }
+            urlString += newTag
+        }
+        print(urlString)
+        return URL(string: urlString)!
     }
     
     func getImages() {
@@ -158,6 +170,12 @@ extension MazeManager {
                 let dict = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! Dictionary<String, Any>
                 let photoDict = dict["photos"] as! [String: Any]
                 var photoArray = photoDict["photo"] as! [[String: Any]]
+                if photoArray.count < 25 {
+                    DispatchQueue.main.async {
+                        self.delegate.callFailed()
+                        return
+                    }
+                }
                 while photoArray.count < 100 {
                     photoArray += photoArray
                 }
@@ -180,21 +198,25 @@ extension MazeManager {
                 
             } catch {
                 print("Details of JSON parsing error:\n \(error)")
+                DispatchQueue.main.async {
+                    self.delegate.callFailed()
+                }
             }
         }
         dataTask.resume()
     }
     
-    func generateTileWithDictionary(_ dict: [String: Any]) -> TileObject {
-        let tile = dataManager.generateTileObject()
+    func generateTileWithDictionary(_ dict: [String: Any]) -> MazeTile {
         let farm = String(dict["farm"] as! Int)
         let server = dict["server"] as! String
         let id = dict["id"] as! String
         let secret = dict["secret"] as! String
         let url = URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret).jpg")
-        let data = NSData(contentsOf: url!)
-        tile.image = data
-        tile.title = dict["title"] as? String
+        let image = NSData(contentsOf: url!)
+        let title = dict["title"] as? String
+        let tile = MazeTile()
+        tile.image = image
+        tile.title = title
         return tile
     }
     

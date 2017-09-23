@@ -29,12 +29,8 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     let size: Float = 5
     
     //TableView Properties
-    var titlesArray = [TileObject]()
+    var titlesArray = [MazeTile]()
     @IBOutlet weak var titlesTableView: UITableView!
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
     
     //    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     //        if UIDevice.current.userInterfaceIdiom == .phone {
@@ -46,6 +42,8 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = true
         
         //set up scene
         setUpSceneView()
@@ -66,7 +64,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func setUpSceneView() {
         sceneView.scene = scene
-        sceneView.showsStatistics = true
         sceneView.backgroundColor = UIColor.black
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapInView(_:)))
@@ -100,7 +97,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = UIColor.white
+        ambientLightNode.light!.color = UIColor.lightGray
         scene.rootNode.addChildNode(ambientLightNode)
     }
     

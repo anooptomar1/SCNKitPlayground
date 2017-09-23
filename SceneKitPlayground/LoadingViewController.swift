@@ -9,20 +9,33 @@
 import UIKit
 
 class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
-
+    
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUp()
+    }
+    
+    func setUp() {
         activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        activityIndicator.isHidden = true
+        
+        progressView.progress = 0
+        progressView.isHidden = true
+        
+    }
+    
+    @IBAction func startButtonPressed(_ sender: UIButton) {
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
+        progressView.isHidden = false
+        
         let mazeManager = MazeManager.sharedInstance
         mazeManager.delegate = self
         mazeManager.setUp()
-        progressView.progress = 0
-        // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,7 +49,8 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
         
     }
     
+    //This is called in the maze manager when a tile is created from the NetworkViewControllerProtocol
     func updateProgress() {
-            progressView.progress += 0.01
+        progressView.progress += 0.01
     }
 }

@@ -11,23 +11,25 @@ import UIKit
 class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     let mazeManager = MazeManager.sharedInstance
-    var sortedTagArray = [String]()
     var tableView: UITableView!
     var cellArray = [TagTableViewCell]()
     var tagHeight: CGFloat = 150
+    var tagSet = Set<String>()
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedTagArray.count
+        return mazeManager.options.tagArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tagTableViewCell", for: indexPath) as! TagTableViewCell
-        let tag = sortedTagArray[indexPath.row]
-        cell.nameLabel.text = tag
+        let tag = mazeManager.options.tagArray[indexPath.row]
+        cell.tagObject = tag
+        cell.onSwitch.isOn = tag.isOn
+        cell.nameLabel.text = tag.name
         cellArray.append(cell)
         return cell
     }
@@ -40,35 +42,35 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
     }
     
     func setUp() {
-        let tagArray = Array(mazeManager.options.tags.keys)
-        sortedTagArray = tagArray.sorted {
-            $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending
+        for tag in mazeManager.options.tagArray {
+            tagSet.insert(tag.name!)
         }
     }
-    
+
     func addTag(_ tag: String) {
         if tag == "" {
             return
         }
 
-        if !mazeManager.options.tags.keys.contains(tag) {
-            mazeManager.options.tags.updateValue(true, forKey: tag)
-            sortedTagArray = Array(mazeManager.options.tags.keys)
-            sortedTagArray = sortedTagArray.sorted {
-                $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending
+        if !tagSet.contains(tag) {
+            tagSet.insert(tag)
+            let newTag = DataManager.sharedInstance.generateTag()
+            newTag.name = tag
+            mazeManager.options.tagArray.append(newTag)
+            mazeManager.options.tagArray = mazeManager.options.tagArray.sorted {
+                $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending
             }
-            let index = sortedTagArray.index(of: tag) ?? 0
+
+            let index = mazeManager.options.tagArray.index(of: newTag) ?? 0
             let indexPath = IndexPath(item: index, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
     }
     
-    func getTagArray() -> [String: Bool] {
-        var tags = [String: Bool]()
+    func updateTagArray() {
         for cell in cellArray {
-            let isOn = cell.onSwitch.isOn
-            tags.updateValue(isOn, forKey: cell.nameLabel.text ?? "No name")
+            let cellTag = cell.tagObject
+            cellTag?.isOn = cell.onSwitch.isOn
         }
-        return tags
-    }    
+    }
 }

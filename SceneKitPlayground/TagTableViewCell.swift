@@ -10,8 +10,9 @@ import UIKit
 
 class TagTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
-
     @IBOutlet weak var onSwitch: UISwitch!
+    var tagObject: TagObject!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

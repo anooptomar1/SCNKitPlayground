@@ -66,4 +66,10 @@ class DataManager: NSObject {
         let player = NSEntityDescription.insertNewObject(forEntityName: "PlayerObject", into: persistentContainer.viewContext) as! PlayerObject
         return player
     }
+    
+    func generateTag() -> TagObject {
+        let tag = NSEntityDescription.insertNewObject(forEntityName: "TagObject", into: persistentContainer.viewContext) as! TagObject
+        return tag
+    }
+    
 }

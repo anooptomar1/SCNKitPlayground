@@ -69,7 +69,7 @@ class GameManager: NSObject {
         for index in 0..<surroundingTiles.count-1 {
             let randomIndex = Int(arc4random_uniform(UInt32((surroundingTiles.count) - index))) + index
             if index != randomIndex {
-                swap(&surroundingTiles[index], &surroundingTiles[randomIndex])
+                surroundingTiles.swapAt(index, randomIndex)
             }
         }
         return surroundingTiles

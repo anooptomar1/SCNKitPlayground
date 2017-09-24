@@ -186,7 +186,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension GameViewController {
-    func panInView(_ sender: UIPanGestureRecognizer) {
+    @objc func panInView(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         cameraDirection += Float(translation.x/200)
         cameraElevation += Float(translation.y/200)
@@ -194,7 +194,7 @@ extension GameViewController {
         sender.setTranslation(CGPoint(x:0, y:0), in: self.view)
     }
     
-    func tapInView(_ sender: UIGestureRecognizer) {
+    @objc func tapInView(_ sender: UIGestureRecognizer) {
         // check what nodes are tapped
         let position = sender.location(in: sceneView)
         let hitResults = sceneView.hitTest(position, options: [:])
@@ -285,7 +285,7 @@ extension GameViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimerLabel), userInfo: nil, repeats: true)
     }
     
-    func updateTimerLabel() {
+    @objc func updateTimerLabel() {
         timeManager.addTime(timeInterval: timer.timeInterval)
         timeLabel.text = timeManager.getTimeString()
     }

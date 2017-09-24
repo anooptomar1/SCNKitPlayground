@@ -36,7 +36,7 @@ class OptionsTableViewController: UITableViewController {
     
     @IBAction func curatedListSwitchToggled(_ sender: UISwitch) {
         tableView.beginUpdates()
-        tagTableViewDataSource.tagHeight = CGFloat(tagTableViewDataSource.sortedTagArray.count * 44)
+        tagTableViewDataSource.tagHeight = CGFloat(mazeManager.options.tagArray.count * 44)
         if sender.isOn {
             tagTableViewDataSource.tagHeight = 0
         }
@@ -45,7 +45,7 @@ class OptionsTableViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         let mazeManager = MazeManager.sharedInstance
-        mazeManager.options.tags = tagTableViewDataSource.getTagArray()
+        tagTableViewDataSource.updateTagArray()
         mazeManager.options.curatedMode = curatedListSwitch.isOn
         super.viewWillDisappear(animated)
     }

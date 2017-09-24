@@ -62,6 +62,11 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         populateTableView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = false
+        super.viewWillDisappear(animated)
+    }
+    
     func setUpSceneView() {
         sceneView.scene = scene
         sceneView.backgroundColor = UIColor.black
@@ -169,6 +174,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         skyBox.geometry?.materials = [material]
     }
     
+    @IBAction func quitButtonPressed(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+
     func createGround() {
         for xIndex in 0...9 {
             for zIndex in 0...9 {

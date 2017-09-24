@@ -22,6 +22,7 @@ class OptionsTableViewController: UITableViewController {
         tagTableViewDataSource.setUp()
         tagTableView.dataSource = tagTableViewDataSource
         tagTableViewDataSource.tableView = tagTableView
+        print(mazeManager.options.tagArray)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         

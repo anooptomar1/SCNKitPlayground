@@ -72,4 +72,14 @@ class DataManager: NSObject {
         return tag
     }
     
+    func fetchTags() -> [TagObject] {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<TagObject>(entityName: "TagObject")
+        do {
+            let objectArray = try context.fetch(request)
+            return objectArray
+        } catch {
+            return [TagObject]()
+        }
+    }
 }

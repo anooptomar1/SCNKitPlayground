@@ -72,5 +72,6 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
             let cellTag = cell.tagObject
             cellTag?.isOn = cell.onSwitch.isOn
         }
+        DataManager.sharedInstance.saveContext()
     }
 }

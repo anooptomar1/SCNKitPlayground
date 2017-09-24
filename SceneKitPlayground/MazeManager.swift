@@ -21,7 +21,10 @@ class MazeManager: NSObject {
     var delegate: NetworkViewControllerProtocol!
     let dataManager = DataManager.sharedInstance
     var maze = Maze(dictionary: [:])
-    var mazeArray = [[MazeTile](),
+    var mazeArray = [[MazeTile]]()
+    
+    func setUp() {
+        mazeArray = [[MazeTile](),
                      [MazeTile](),
                      [MazeTile](),
                      [MazeTile](),
@@ -31,10 +34,16 @@ class MazeManager: NSObject {
                      [MazeTile](),
                      [MazeTile](),
                      [MazeTile]()]
-    
-    func setUp() {
         createMaze()
         getImages()
+    }
+    
+    func getPersistentData() {
+        options.tagArray = dataManager.fetchTags()
+        options.tagArray = options.tagArray.sorted {
+            $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending
+        }
+
     }
     
     func createMaze() {

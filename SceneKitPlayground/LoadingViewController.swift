@@ -24,6 +24,7 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
         progressView.progress = 0
         progressView.isHidden = true
         
+        MazeManager.sharedInstance.getPersistentData()
     }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
@@ -43,6 +44,10 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
     
     func callSucceeded() {
         performSegue(withIdentifier: "GameViewController", sender: nil)
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        progressView.progress = 0
+        progressView.isHidden = true
     }
     
     func callFailed() {

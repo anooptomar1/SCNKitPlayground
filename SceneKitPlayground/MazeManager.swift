@@ -10,7 +10,7 @@ import UIKit
 
 struct Options {
     var tagArray = [TagObject]()
-    var curatedMode = true
+    var easyMode = false
 }
 
 class MazeManager: NSObject {
@@ -145,7 +145,7 @@ class MazeManager: NSObject {
 
 extension MazeManager {
     func getImageRequestURL() -> URL{
-        if options.curatedMode == true {
+        if options.easyMode == true {
             return URL(string: "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=200&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo")!
         }
         

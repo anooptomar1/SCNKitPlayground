@@ -9,7 +9,8 @@
 import UIKit
 
 class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
-    
+
+    @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -32,6 +33,9 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
         activityIndicator.startAnimating()
         progressView.isHidden = false
         
+        buttonView.isUserInteractionEnabled = false
+        buttonView.alpha = 0.5
+        
         let mazeManager = MazeManager.sharedInstance
         mazeManager.delegate = self
         mazeManager.setUp()
@@ -44,14 +48,20 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
     
     func callSucceeded() {
         performSegue(withIdentifier: "GameViewController", sender: nil)
+        resetView()
+    }
+    
+    func callFailed() {
+        resetView()
+    }
+    
+    func resetView() {
+        buttonView.isUserInteractionEnabled = true
+        buttonView.alpha = 1
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         progressView.progress = 0
         progressView.isHidden = true
-    }
-    
-    func callFailed() {
-        
     }
     
     //This is called in the maze manager when a tile is created from the NetworkViewControllerProtocol

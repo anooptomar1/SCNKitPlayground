@@ -22,7 +22,7 @@ class OptionsTableViewController: UITableViewController {
         tagTableViewDataSource.setUp()
         tagTableView.dataSource = tagTableViewDataSource
         tagTableViewDataSource.tableView = tagTableView
-        print(mazeManager.options.tagArray)
+        curatedListSwitch.isOn = mazeManager.options.easyMode
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -47,7 +47,7 @@ class OptionsTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         let mazeManager = MazeManager.sharedInstance
         tagTableViewDataSource.updateTagArray()
-        mazeManager.options.curatedMode = curatedListSwitch.isOn
+        mazeManager.options.easyMode = curatedListSwitch.isOn
         super.viewWillDisappear(animated)
     }
     

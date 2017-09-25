@@ -72,6 +72,11 @@ class DataManager: NSObject {
         return tag
     }
     
+    func generateScore() -> ScoreObject {
+        let score = NSEntityDescription.insertNewObject(forEntityName: "ScoreObject", into: persistentContainer.viewContext) as! ScoreObject
+        return score
+    }
+    
     func fetchTags() -> [TagObject] {
         let context = persistentContainer.viewContext
         let request = NSFetchRequest<TagObject>(entityName: "TagObject")

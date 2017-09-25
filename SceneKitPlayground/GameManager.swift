@@ -14,12 +14,17 @@ class GameManager: NSObject {
     let dataManager = DataManager.sharedInstance
     var player: PlayerObject!
     var surroundingTilesDictionary = [MazeTile: Direction]()
-    
+    var delegate: EndGameProtocol!
+
     func startGame() {
         player = dataManager.generatePlayer()
         player.xPosition = Int16(mazeManager.maze.start.0)
         player.zPosition = Int16(mazeManager.maze.start.1)
         player.steps = 0
+    }
+    
+    func endGame() {
+        delegate.endGame()
     }
     
     func getSurroundingTileTitles() -> [MazeTile] {
@@ -75,19 +80,24 @@ class GameManager: NSObject {
         return surroundingTiles
     }
     
-    func movePlayerNorth() {
-        player.zPosition -= 1
+    func movePlayer(_ direction: Direction) {
+        switch direction {
+        case .north:
+            player.zPosition -= 1
+        case .south:
+            player.zPosition += 1
+        case .west:
+            player.xPosition -= 1
+        case .east:
+            player.xPosition += 1
+        default:
+            break
+        }
     }
     
-    func movePlayerSouth() {
-        player.zPosition += 1
-    }
-    
-    func movePlayerWest() {
-        player.xPosition -= 1
-    }
-    
-    func movePlayerEast() {
-        player.xPosition += 1
+    func checkWin() {
+        if player.xPosition == mazeManager.maze.end.0 && player.zPosition == mazeManager.maze.end.1 {
+            endGame()
+        }
     }
 }

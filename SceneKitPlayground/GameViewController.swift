@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController, UIGestureRecognizerDelegate {
+class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGameProtocol {
     let mazeManager = MazeManager.sharedInstance
     let gameManager = GameManager()
     
@@ -32,14 +32,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     var titlesArray = [MazeTile]()
     @IBOutlet weak var titlesTableView: UITableView!
     
-    //    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    //        if UIDevice.current.userInterfaceIdiom == .phone {
-    //            return .allButUpsideDown
-    //        } else {
-    //            return .all
-    //        }
-    //    }
-    //
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,8 +47,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         createBorders()
         // createSky()
         createGround()
+        createEndNode()
         
         //set up game
+        gameManager.delegate = self
         gameManager.startGame()
         startTimer()
         populateTableView()
@@ -65,6 +59,12 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
         super.viewWillDisappear(animated)
+    }
+    
+    func endGame() {
+        timer.invalidate()
+        gameManager.player.time = Int64(timeManager.stopWatch.totalTime)
+        performSegue(withIdentifier: "EndGameViewController", sender: nil)
     }
     
     func setUpSceneView() {
@@ -192,6 +192,15 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
+    
+    func createEndNode() {
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named: "trophy")
+        let wall = createWall()
+        wall.geometry?.materials = [material]
+        wall.position = SCNVector3(x: (Float(mazeManager.maze.end.0))*size, y: 6, z: (Float(mazeManager.maze.end.1))*size)
+        scene.rootNode.addChildNode(wall)
+    }
 }
 
 extension GameViewController {
@@ -215,6 +224,10 @@ extension GameViewController {
             
             let xPosition = Int(node.position.x/size)
             let zPosition = Int(node.position.z/size)
+            
+            if xPosition == gameManager.player.xPosition && zPosition == gameManager.player.zPosition {
+                return
+            }
             
             if !mazeManager.checkWall(x: xPosition, z: zPosition) && !mazeManager.checkBorder(x: xPosition, z: zPosition) {
                 moveNodeIntoView(node: node)
@@ -334,26 +347,25 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.isUserInteractionEnabled = false
             let position = self.cameraNode.position
             var moveTo: SCNAction?
+            gameManager.movePlayer(direction)
             switch direction {
             case .north:
-                gameManager.movePlayerNorth()
                 moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-self.size), duration: 1)
             case .south:
-                gameManager.movePlayerSouth()
                 moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+self.size), duration: 1)
             case .west:
-                gameManager.movePlayerWest()
                 moveTo = SCNAction.move(to: SCNVector3(x: position.x-self.size, y: position.y, z: position.z), duration: 1)
             case .east:
-                gameManager.movePlayerEast()
                 moveTo = SCNAction.move(to: SCNVector3(x: position.x+self.size, y: position.y, z: position.z), duration: 1)
             case .none:
                 moveTo = nil
                 tableView.isUserInteractionEnabled = true
                 self.populateTableView()
             }
+            
             if moveTo != nil {
                 self.cameraNode.runAction(moveTo!, completionHandler: {
+                    self.gameManager.checkWin()
                     tableView.isUserInteractionEnabled = true
                     self.populateTableView()
                 })
@@ -361,5 +373,12 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
         }
         gameManager.player.steps += 1
         stepLabel.text = "Steps: \(gameManager.player.steps)"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EndGameViewController" {
+            let egvc = segue.destination as! EndGameViewController
+            egvc.player = gameManager.player
+        }
     }
 }

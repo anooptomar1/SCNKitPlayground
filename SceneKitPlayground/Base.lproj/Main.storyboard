@@ -369,7 +369,7 @@
                         <outlet property="stepLabel" destination="XcZ-OL-m7V" id="LTl-vb-lBb"/>
                         <outlet property="timeLabel" destination="P4v-BD-CZV" id="GBd-i2-Gsk"/>
                         <outlet property="titlesTableView" destination="klI-a3-Dqi" id="VTA-HS-WB8"/>
-                        <segue destination="Bh3-u1-RPW" kind="show" id="El3-Tl-f58"/>
+                        <segue destination="Bh3-u1-RPW" kind="show" identifier="EndGameViewController" id="El3-Tl-f58"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7dx-Ye-06L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -417,8 +417,39 @@
                     <view key="view" contentMode="scaleToFill" id="wKN-0g-BcJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17G-Bs-VTH">
+                                <rect key="frame" x="166" y="194" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pf2-RH-UKH">
+                                <rect key="frame" x="168.5" y="263" width="38" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="17G-Bs-VTH" firstAttribute="top" secondItem="fpQ-jP-2Qf" secondAttribute="bottom" constant="130" id="GGF-Ic-ixw"/>
+                            <constraint firstItem="Pf2-RH-UKH" firstAttribute="top" secondItem="fpQ-jP-2Qf" secondAttribute="bottom" constant="199" id="MRH-bz-Spg"/>
+                            <constraint firstItem="17G-Bs-VTH" firstAttribute="centerX" secondItem="wKN-0g-BcJ" secondAttribute="centerX" id="YaA-wy-8S9"/>
+                            <constraint firstItem="Pf2-RH-UKH" firstAttribute="centerX" secondItem="wKN-0g-BcJ" secondAttribute="centerX" id="ZyQ-59-4gL"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="jlM-uy-Yt2">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="vzg-ai-1qd">
+                            <connections>
+                                <action selector="backButtonPressed:" destination="Bh3-u1-RPW" id="PqO-K1-Uxt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="stepLabel" destination="17G-Bs-VTH" id="SWG-yd-IxP"/>
+                        <outlet property="timeLabel" destination="Pf2-RH-UKH" id="zQJ-92-bt5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSS-U5-kf1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

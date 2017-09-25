@@ -15,11 +15,15 @@ class TimeManager: NSObject {
         var minute: Int = 0
         var second: Int = 0
     }
-
+    
     var stopWatch = StopWatch()
 
     func addTime(timeInterval: TimeInterval) {
         stopWatch.totalTime += timeInterval
+        updateStopWatch()
+    }
+    
+    func updateStopWatch() {
         stopWatch.hour = Int(stopWatch.totalTime)/3600
         stopWatch.minute = Int(stopWatch.totalTime)/60%60
         stopWatch.second = Int(stopWatch.totalTime)%60

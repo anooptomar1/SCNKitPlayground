@@ -95,6 +95,7 @@
 				891D535C1F5E3A7B00533E8F /* AppDelegate.swift */,
 				891D53721F5EF57200533E8F /* MazeManager.swift */,
 				89F3967B1F729C5D00FF8589 /* GameManager.swift */,
+				89F396831F74547F00FF8589 /* TimeManager.swift */,
 				896F1B3C1F6F4C7C00E5A412 /* DataManager.swift */,
 				896F1B401F6F52C500E5A412 /* Protocols.swift */,
 				89F396811F730C7800FF8589 /* Enums.swift */,
@@ -160,7 +161,6 @@
 			children = (
 				891D53601F5E3A7B00533E8F /* GameViewController.swift */,
 				89F3967D1F72F7ED00FF8589 /* TitleCell.swift */,
-				89F396831F74547F00FF8589 /* TimeManager.swift */,
 				891D53701F5EF44000533E8F /* Maze.swift */,
 				89F396911F76096300FF8589 /* MazeTile.swift */,
 			);

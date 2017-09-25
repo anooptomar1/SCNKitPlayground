@@ -13,3 +13,7 @@ protocol NetworkViewControllerProtocol {
     func callFailed()
     func updateProgress()
 }
+
+protocol EndGameProtocol {
+    func endGame()
+}

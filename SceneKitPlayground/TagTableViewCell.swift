@@ -23,5 +23,7 @@ class TagTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func switchToggled(_ sender: UISwitch) {
+        tagObject.isOn = sender.isOn
+    }    
 }

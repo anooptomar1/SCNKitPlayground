@@ -12,7 +12,6 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
     
     let mazeManager = MazeManager.sharedInstance
     var tableView: UITableView!
-    var cellArray = [TagTableViewCell]()
     var tagHeight: CGFloat = 150
     var tagSet = Set<String>()
     
@@ -30,7 +29,6 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
         cell.tagObject = tag
         cell.onSwitch.isOn = tag.isOn
         cell.nameLabel.text = tag.name
-        cellArray.append(cell)
         return cell
     }
     
@@ -41,17 +39,26 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
         return 44
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let tag = mazeManager.options.tagArray[indexPath.row]
+            mazeManager.options.tagArray.remove(at: indexPath.row)
+            DataManager.sharedInstance.persistentContainer.viewContext.delete(tag)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     func setUp() {
         for tag in mazeManager.options.tagArray {
             tagSet.insert(tag.name!)
         }
     }
-
+    
     func addTag(_ tag: String) {
         if tag == "" {
             return
         }
-
+        
         if !tagSet.contains(tag) {
             tagSet.insert(tag)
             let newTag = DataManager.sharedInstance.generateTag()
@@ -60,18 +67,10 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
             mazeManager.options.tagArray = mazeManager.options.tagArray.sorted {
                 $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending
             }
-
+            
             let index = mazeManager.options.tagArray.index(of: newTag) ?? 0
             let indexPath = IndexPath(item: index, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
-    }
-    
-    func updateTagArray() {
-        for cell in cellArray {
-            let cellTag = cell.tagObject
-            cellTag?.isOn = cell.onSwitch.isOn
-        }
-        DataManager.sharedInstance.saveContext()
     }
 }

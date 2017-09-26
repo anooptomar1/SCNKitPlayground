@@ -126,6 +126,7 @@
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="curatedListSwitchToggled:" destination="T1Y-5E-NUN" eventType="valueChanged" id="1q6-Qj-Slm"/>
+                                                        <action selector="easyModeSwitchToggled:" destination="T1Y-5E-NUN" eventType="valueChanged" id="ZbC-KU-76r"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -206,6 +207,9 @@
                                                                     </label>
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIT-lx-jF1">
                                                                         <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                                        <connections>
+                                                                            <action selector="switchToggled:" destination="Ck6-85-f15" eventType="valueChanged" id="QY5-fQ-eJV"/>
+                                                                        </connections>
                                                                     </switch>
                                                                 </subviews>
                                                                 <constraints>
@@ -248,7 +252,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="curatedListSwitch" destination="UPi-Bd-mxP" id="cLV-da-N7J"/>
+                        <outlet property="easyModeSwitch" destination="UPi-Bd-mxP" id="Uy6-iC-y1x"/>
                         <outlet property="tagTableView" destination="lOQ-6d-u3A" id="C37-OI-3k7"/>
                         <outlet property="tagTextField" destination="Bv2-CF-lHR" id="p3d-TY-jr8"/>
                     </connections>
@@ -391,6 +395,40 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gJ8-yE-yAS">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HighScoreTableViewCell" id="1yo-Ls-vq8" customClass="HighScoreTableViewCell" customModule="SceneKitPlayground" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1yo-Ls-vq8" id="n56-XY-gzW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mh3-hU-PuX">
+                                                    <rect key="frame" x="32" y="14" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urd-Bt-ymZ">
+                                                    <rect key="frame" x="311" y="8" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="stepsLabel" destination="mh3-hU-PuX" id="54y-pR-ABV"/>
+                                            <outlet property="timeLabel" destination="Urd-Bt-ymZ" id="9BW-xT-dSX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="F0G-Lr-4Ir" id="RtC-Ue-CBq"/>
+                                    <outlet property="delegate" destination="F0G-Lr-4Ir" id="LxC-bW-1M2"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -401,6 +439,9 @@
                             <constraint firstAttribute="trailing" secondItem="gJ8-yE-yAS" secondAttribute="trailing" id="ue3-3L-vlv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="highScoreTableView" destination="gJ8-yE-yAS" id="cgy-Ju-coC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcq-SP-dOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

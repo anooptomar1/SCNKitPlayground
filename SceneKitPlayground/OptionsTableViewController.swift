@@ -13,21 +13,25 @@ class OptionsTableViewController: UITableViewController {
     @IBOutlet weak var tagTableView: UITableView!
     @IBOutlet weak var tagTextField: UITextField!
     
+    @IBOutlet weak var easyModeSwitch: UISwitch!
     let tagTableViewDataSource = TagTableViewDataSource()
     let mazeManager = MazeManager.sharedInstance
     
-    @IBOutlet weak var curatedListSwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
         tagTableViewDataSource.setUp()
         tagTableView.dataSource = tagTableViewDataSource
         tagTableViewDataSource.tableView = tagTableView
-        curatedListSwitch.isOn = mazeManager.options.easyMode
+        easyModeSwitch.isOn = mazeManager.options.easyMode
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    @IBAction func easyModeSwitchToggled(_ sender: UISwitch) {
+        mazeManager.options.easyMode = sender.isOn
     }
     
     @IBAction func addTagPressed(_ sender: UIButton) {
@@ -45,9 +49,7 @@ class OptionsTableViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        let mazeManager = MazeManager.sharedInstance
-        tagTableViewDataSource.updateTagArray()
-        mazeManager.options.easyMode = curatedListSwitch.isOn
+        DataManager.sharedInstance.saveContext()
         super.viewWillDisappear(animated)
     }
     
@@ -56,18 +58,6 @@ class OptionsTableViewController: UITableViewController {
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
      return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
      }
      */
     

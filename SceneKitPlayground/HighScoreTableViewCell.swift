@@ -9,6 +9,8 @@
 import UIKit
 
 class HighScoreTableViewCell: UITableViewCell {
+    @IBOutlet weak var stepsLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

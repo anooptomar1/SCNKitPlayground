@@ -6,6 +6,10 @@
         <attribute name="xPosition" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="zPosition" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="ScoreObject" representedClassName="ScoreObject" syncable="YES" codeGenerationType="class">
+        <attribute name="steps" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="TagObject" representedClassName="TagObject" syncable="YES" codeGenerationType="class">
         <attribute name="isOn" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -18,5 +22,6 @@
         <element name="PlayerObject" positionX="-54" positionY="9" width="128" height="105"/>
         <element name="TagObject" positionX="-54" positionY="27" width="128" height="75"/>
         <element name="TileObject" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="ScoreObject" positionX="-54" positionY="27" width="128" height="75"/>
     </elements>
 </model>

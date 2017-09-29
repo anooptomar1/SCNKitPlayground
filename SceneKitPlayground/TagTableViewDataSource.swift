@@ -12,7 +12,6 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
     
     let mazeManager = MazeManager.sharedInstance
     var tableView: UITableView!
-    var tagHeight: CGFloat = 150
     var tagSet = Set<String>()
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -30,13 +29,6 @@ class TagTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelega
         cell.onSwitch.isOn = tag.isOn
         cell.nameLabel.text = tag.name
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 && indexPath.row == 2 {
-            return tagHeight
-        }
-        return 44
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

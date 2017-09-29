@@ -14,12 +14,13 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         highScoreArray = DataManager.sharedInstance.fetchScores()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        highScoreArray = highScoreArray.sorted { (struct1, struct2) -> Bool in
+            if (struct1.steps != struct2.steps) {
+                return struct1.steps < struct2.steps
+            } else {
+                return struct1.time < struct2.time
+            }
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,9 +38,11 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         let timeManager = TimeManager()
         timeManager.stopWatch.totalTime = Double(score.time)
         timeManager.updateStopWatch()
-        cell.timeLabel.text = timeManager.getTimeString()
-        
+        cell.timeLabel.text = "Time: \(timeManager.getTimeString())"
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
 }

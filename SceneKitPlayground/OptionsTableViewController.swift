@@ -37,15 +37,7 @@ class OptionsTableViewController: UITableViewController {
     @IBAction func addTagPressed(_ sender: UIButton) {
         tagTableViewDataSource.addTag(tagTextField.text ?? "")
         tagTextField.text = ""
-    }
-    
-    @IBAction func curatedListSwitchToggled(_ sender: UISwitch) {
-        tableView.beginUpdates()
-        tagTableViewDataSource.tagHeight = CGFloat(mazeManager.options.tagArray.count * 44)
-        if sender.isOn {
-            tagTableViewDataSource.tagHeight = 0
-        }
-        tableView.endUpdates()
+        tagTextField.resignFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

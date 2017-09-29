@@ -43,7 +43,6 @@ class MazeManager: NSObject {
         options.tagArray = options.tagArray.sorted {
             $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending
         }
-
     }
     
     func createMaze() {

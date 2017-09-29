@@ -64,7 +64,9 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
     func endGame() {
         timer.invalidate()
         gameManager.player.time = Int64(timeManager.stopWatch.totalTime)
-        performSegue(withIdentifier: "EndGameViewController", sender: nil)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "EndGameViewController", sender: nil)
+        }
     }
     
     func setUpSceneView() {
@@ -247,58 +249,6 @@ extension GameViewController {
             SCNTransaction.commit()
         }
         SCNTransaction.commit()
-    }
-    
-    @IBAction func moveXPressed(_ sender: UIButton) {
-        //east
-        UIView.animate(withDuration: 1, animations: {
-            let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x+self.size, y: position.y, z: position.z), duration: 1)
-            self.cameraNode.runAction(moveTo)
-        })
-    }
-    
-    @IBAction func moveReverseXPressed(_ sender: UIButton) {
-        //west
-        UIView.animate(withDuration: 1, animations: {
-            let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x-self.size, y: position.y, z: position.z), duration: 1)
-            self.cameraNode.runAction(moveTo)
-        })
-    }
-    
-    @IBAction func moveYPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: 1, animations: {
-            let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y+2, z: position.z), duration: 1)
-            self.cameraNode.runAction(moveTo)
-        })
-    }
-    
-    @IBAction func moveReverseYPressed(_ sender: UIButton) {
-        UIView.animate(withDuration: 1, animations: {
-            let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y-2, z: position.z), duration: 1)
-            self.cameraNode.runAction(moveTo)
-        })
-    }
-    
-    @IBAction func moveZPressed(_ sender: UIButton) {
-        //south
-        UIView.animate(withDuration: 1, animations: {
-            let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z+self.size), duration: 1)
-            self.cameraNode.runAction(moveTo)
-        })
-    }
-    
-    @IBAction func moveReverseZPressed(_ sender: UIButton) {
-        //north
-        UIView.animate(withDuration: 1, animations: {
-            let position = self.cameraNode.position
-            let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: position.y, z: position.z-self.size), duration: 1)
-            self.cameraNode.runAction(moveTo)
-        })
     }
 }
 

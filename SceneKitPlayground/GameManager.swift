@@ -35,7 +35,9 @@ class GameManager: NSObject {
     func getSurroundingTiles(x: Int, z: Int) {
         surroundingTilesDictionary.removeAll()
         let tiles = mazeManager.mazeArray
-        
+        //checks the four tiles around the player position in the order north, south, west, east
+        //if the tile is on a border, nothing is returned
+        //the values of the dictionary represent which direction the player will move if that tile is selected. The direction is set to none if the tile contains a wall.
         if !mazeManager.checkBorder(x: x, z: z-1) {
             if !mazeManager.checkWall(x: x, z: z-1) {
                 surroundingTilesDictionary.updateValue(.north, forKey: tiles[x][z-1])

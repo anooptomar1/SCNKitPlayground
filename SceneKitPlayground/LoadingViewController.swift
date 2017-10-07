@@ -52,6 +52,9 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
     }
     
     func callFailed(message: String) {
+        let alertController = UIAlertController(title: "Cannot Continue", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
         resetView()
     }
     

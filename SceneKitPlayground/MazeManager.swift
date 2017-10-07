@@ -181,7 +181,7 @@ extension MazeManager {
                 var photoArray = photoDict["photo"] as! [[String: Any]]
                 if photoArray.count < 25 {
                     DispatchQueue.main.async {
-                        self.delegate.callFailed()
+                        self.delegate.callFailed(message: "Not enough images.")
                         return
                     }
                 }
@@ -194,9 +194,9 @@ extension MazeManager {
                     if self.mazeArray[zIndex].count > 9 {
                         zIndex += 1
                     }
-                    
                     let tile = self.generateTileWithDictionary(photoArray[index])
                     self.mazeArray[zIndex].append(tile)
+                    
                     DispatchQueue.main.async {
                         self.delegate.updateProgress()
                     }
@@ -208,7 +208,7 @@ extension MazeManager {
             } catch {
                 print("Details of JSON parsing error:\n \(error)")
                 DispatchQueue.main.async {
-                    self.delegate.callFailed()
+                    self.delegate.callFailed(message: "Could not connect to server")
                 }
             }
         }

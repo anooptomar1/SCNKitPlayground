@@ -56,6 +56,10 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
         populateTableView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
         super.viewWillDisappear(animated)

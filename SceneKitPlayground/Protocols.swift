@@ -10,7 +10,7 @@ import Foundation
 
 protocol NetworkViewControllerProtocol {
     func callSucceeded()
-    func callFailed()
+    func callFailed(message: String)
     func updateProgress()
 }
 

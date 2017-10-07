@@ -51,7 +51,7 @@ class LoadingViewController: UIViewController, NetworkViewControllerProtocol {
         resetView()
     }
     
-    func callFailed() {
+    func callFailed(message: String) {
         resetView()
     }
     

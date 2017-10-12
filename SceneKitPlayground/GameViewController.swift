@@ -45,7 +45,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
         //set up maze
         createMaze()
         createBorders()
-        // createSky()
         createGround()
         createEndNode()
         
@@ -112,11 +111,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
         scene.rootNode.addChildNode(ambientLightNode)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-    
     func createNode() -> SCNNode {
         let geometry = SCNSphere(radius: 1)
         return SCNNode(geometry: geometry)
@@ -168,16 +162,6 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
             borderWallX2.geometry?.materials = [material]
             scene.rootNode.addChildNode(borderWallX2)
         }
-    }
-    
-    func createSky() {
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "sky")
-        let geometry = SCNBox(width: 24, height: 1, length: 24, chamferRadius: 0)
-        let skyBox = SCNNode(geometry: geometry)
-        scene.rootNode.addChildNode(skyBox)
-        skyBox.position = SCNVector3(x: 9, y: 2, z: 9)
-        skyBox.geometry?.materials = [material]
     }
     
     @IBAction func quitButtonPressed(_ sender: UIButton) {
@@ -320,7 +304,9 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
             if moveTo != nil {
                 self.cameraNode.runAction(moveTo!, completionHandler: {
                     self.gameManager.checkWin()
-                    tableView.isUserInteractionEnabled = true
+                    DispatchQueue.main.async {
+                        tableView.isUserInteractionEnabled = true
+                    }
                     self.populateTableView()
                 })
             }

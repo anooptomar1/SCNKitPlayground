@@ -23,17 +23,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rVx-8P-Xa8">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
-                            </activityIndicatorView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4bQ-M6-lmy">
-                                <rect key="frame" x="37" y="393" width="300" height="2"/>
-                            </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nL3-pY-hmc">
-                                <rect key="frame" x="-0.5" y="64" width="375" height="233.5"/>
+                                <rect key="frame" x="-0.5" y="64" width="375" height="267"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxu-Q1-yg3">
-                                        <rect key="frame" x="166.5" y="69.5" width="42" height="36"/>
+                                        <rect key="frame" x="166.5" y="105" width="42" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
@@ -41,7 +35,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whS-oa-jJC">
-                                        <rect key="frame" x="153" y="113.5" width="69" height="36"/>
+                                        <rect key="frame" x="153" y="149" width="69" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Options"/>
                                         <connections>
@@ -49,24 +43,38 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iJ-fe-cF4">
-                                        <rect key="frame" x="134.5" y="157.5" width="106" height="36"/>
+                                        <rect key="frame" x="134.5" y="193" width="106" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="High Scores"/>
                                         <connections>
                                             <segue destination="F0G-Lr-4Ir" kind="show" id="xrY-qR-zS0"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flickr Maze 3D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5o-3g-EDk">
+                                        <rect key="frame" x="92" y="49" width="191" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="A5o-3g-EDk" firstAttribute="centerX" secondItem="nL3-pY-hmc" secondAttribute="centerX" id="9oi-N8-Hst"/>
                                     <constraint firstItem="zxu-Q1-yg3" firstAttribute="centerX" secondItem="nL3-pY-hmc" secondAttribute="centerX" id="ELd-V2-eVK"/>
+                                    <constraint firstItem="A5o-3g-EDk" firstAttribute="centerY" secondItem="nL3-pY-hmc" secondAttribute="centerY" multiplier="0.5" id="FJE-fe-cCK"/>
                                     <constraint firstItem="whS-oa-jJC" firstAttribute="centerX" secondItem="nL3-pY-hmc" secondAttribute="centerX" id="J8U-Qu-u37"/>
                                     <constraint firstItem="9iJ-fe-cF4" firstAttribute="centerX" secondItem="nL3-pY-hmc" secondAttribute="centerX" id="Jij-bc-DBW"/>
-                                    <constraint firstItem="zxu-Q1-yg3" firstAttribute="centerY" secondItem="nL3-pY-hmc" secondAttribute="centerY" multiplier="0.75" id="eHR-I7-jJ3"/>
                                     <constraint firstItem="whS-oa-jJC" firstAttribute="top" secondItem="zxu-Q1-yg3" secondAttribute="bottom" constant="8" id="kr2-SS-01O"/>
                                     <constraint firstItem="9iJ-fe-cF4" firstAttribute="top" secondItem="whS-oa-jJC" secondAttribute="bottom" constant="8" id="pmZ-zK-WFz"/>
+                                    <constraint firstItem="zxu-Q1-yg3" firstAttribute="top" secondItem="A5o-3g-EDk" secondAttribute="bottom" constant="20" id="vG4-4A-JnW"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4bQ-M6-lmy">
+                                <rect key="frame" x="37" y="393" width="300" height="2"/>
+                            </progressView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rVx-8P-Xa8">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -76,7 +84,7 @@
                             <constraint firstItem="4bQ-M6-lmy" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="JdH-KE-PYG"/>
                             <constraint firstItem="rVx-8P-Xa8" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="Xez-45-hOD"/>
                             <constraint firstItem="nL3-pY-hmc" firstAttribute="top" secondItem="VqV-EH-4cK" secondAttribute="bottom" id="Ydu-bC-1G2"/>
-                            <constraint firstItem="nL3-pY-hmc" firstAttribute="height" secondItem="qgr-uM-kEw" secondAttribute="height" multiplier="0.35" id="ZCQ-th-2Wb"/>
+                            <constraint firstItem="nL3-pY-hmc" firstAttribute="height" secondItem="qgr-uM-kEw" secondAttribute="height" multiplier="0.4" id="ZCQ-th-2Wb"/>
                             <constraint firstItem="4bQ-M6-lmy" firstAttribute="width" secondItem="qgr-uM-kEw" secondAttribute="width" multiplier="0.8" id="fwR-kc-md9"/>
                             <constraint firstItem="nL3-pY-hmc" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="jtY-1J-jbO"/>
                         </constraints>

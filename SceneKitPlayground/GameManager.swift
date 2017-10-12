@@ -29,7 +29,7 @@ class GameManager: NSObject {
     
     func getSurroundingTileTitles() -> [MazeTile] {
         getSurroundingTiles(x: Int(player.xPosition), z: Int(player.zPosition))
-        return randomizeSurrounding()
+        return randomizeArray(Array(surroundingTilesDictionary.keys)) as! Array<MazeTile>
     }
     
     func getSurroundingTiles(x: Int, z: Int) {
@@ -71,15 +71,15 @@ class GameManager: NSObject {
         }
     }
     
-    func randomizeSurrounding() -> [MazeTile] {
-        var surroundingTiles = Array(surroundingTilesDictionary.keys)
-        for index in 0..<surroundingTiles.count-1 {
-            let randomIndex = Int(arc4random_uniform(UInt32((surroundingTiles.count) - index))) + index
+    func randomizeArray(_ array: Array<Any>) -> Array<Any> {
+        var randomArray = array
+        for index in 0..<randomArray.count-1 {
+            let randomIndex = Int(arc4random_uniform(UInt32((randomArray.count) - index))) + index
             if index != randomIndex {
-                surroundingTiles.swapAt(index, randomIndex)
+                randomArray.swapAt(index, randomIndex)
             }
         }
-        return surroundingTiles
+        return randomArray
     }
     
     func movePlayer(_ direction: Direction) {

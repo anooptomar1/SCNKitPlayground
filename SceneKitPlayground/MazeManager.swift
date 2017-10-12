@@ -145,12 +145,8 @@ class MazeManager: NSObject {
 extension MazeManager {
     func getImageRequestURL() -> URL{
         if options.easyMode == true {
-//c3867984f5e8374b888038a74ea3e931
-            
-//            return URL(string: "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=200&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo")!
             return URL(string: "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=200&format=json&nojsoncallback=1&api_key=c3867984f5e8374b888038a74ea3e931&has_geo")!
         }
-//        var urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=4ecacf0cd6441400e02e57ec12f0bb68&has_geo&tags="
 
         var urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=c3867984f5e8374b888038a74ea3e931&has_geo&tags="
         

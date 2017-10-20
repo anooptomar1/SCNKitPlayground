@@ -10,7 +10,7 @@ import UIKit
 
 struct Options {
     var tagArray = [TagObject]()
-    var easyMode = false
+    var easyMode = true
 }
 
 class MazeManager: NSObject {

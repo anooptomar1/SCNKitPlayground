@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -469,14 +469,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17G-Bs-VTH">
-                                <rect key="frame" x="166" y="194" width="44" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trophy" translatesAutoresizingMaskIntoConstraints="NO" id="akI-Kj-y4k">
+                                <rect key="frame" x="0.0" y="130" width="375" height="537"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pf2-RH-UKH">
+                                <rect key="frame" x="8" y="101" width="38" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="RKe-D7-erD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pf2-RH-UKH">
-                                <rect key="frame" x="168.5" y="263" width="38" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17G-Bs-VTH">
+                                <rect key="frame" x="8" y="72" width="44" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="iJa-0g-bLZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -484,10 +493,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="17G-Bs-VTH" firstAttribute="top" secondItem="fpQ-jP-2Qf" secondAttribute="bottom" constant="130" id="GGF-Ic-ixw"/>
-                            <constraint firstItem="Pf2-RH-UKH" firstAttribute="top" secondItem="fpQ-jP-2Qf" secondAttribute="bottom" constant="199" id="MRH-bz-Spg"/>
-                            <constraint firstItem="17G-Bs-VTH" firstAttribute="centerX" secondItem="wKN-0g-BcJ" secondAttribute="centerX" id="YaA-wy-8S9"/>
-                            <constraint firstItem="Pf2-RH-UKH" firstAttribute="centerX" secondItem="wKN-0g-BcJ" secondAttribute="centerX" id="ZyQ-59-4gL"/>
+                            <constraint firstItem="17G-Bs-VTH" firstAttribute="top" secondItem="fpQ-jP-2Qf" secondAttribute="bottom" constant="8" id="GGF-Ic-ixw"/>
+                            <constraint firstItem="akI-Kj-y4k" firstAttribute="leading" secondItem="wKN-0g-BcJ" secondAttribute="leading" id="IQO-w4-THN"/>
+                            <constraint firstItem="Bzq-h5-Bkf" firstAttribute="top" secondItem="akI-Kj-y4k" secondAttribute="bottom" id="MAy-Yz-p78"/>
+                            <constraint firstItem="Pf2-RH-UKH" firstAttribute="top" secondItem="17G-Bs-VTH" secondAttribute="bottom" constant="8" id="R6T-6I-mWa"/>
+                            <constraint firstItem="Pf2-RH-UKH" firstAttribute="leading" secondItem="wKN-0g-BcJ" secondAttribute="leading" constant="8" id="ZfG-FG-87y"/>
+                            <constraint firstItem="akI-Kj-y4k" firstAttribute="top" secondItem="Pf2-RH-UKH" secondAttribute="bottom" constant="8" id="Zz4-hM-nD6"/>
+                            <constraint firstItem="17G-Bs-VTH" firstAttribute="leading" secondItem="wKN-0g-BcJ" secondAttribute="leading" constant="8" id="ty2-6F-cOd"/>
+                            <constraint firstAttribute="trailing" secondItem="akI-Kj-y4k" secondAttribute="trailing" id="yWs-vb-cME"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jlM-uy-Yt2">
@@ -504,12 +517,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSS-U5-kf1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1082" y="1603"/>
+            <point key="canvasLocation" x="1080.8" y="1602.5487256371816"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4i7-37-Q2J">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oia-Jq-dea" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="R5p-S7-O6b" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ofS-9K-giK">
@@ -521,6 +533,7 @@
                         <segue destination="5wS-Os-HLi" kind="relationship" relationship="rootViewController" id="ftX-ho-yXc"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oia-Jq-dea" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-688.79999999999995" y="774.96251874062978"/>
         </scene>
@@ -530,5 +543,6 @@
         <image name="button_options" width="115" height="40"/>
         <image name="button_start" width="94" height="40"/>
         <image name="hedge_maze" width="226" height="288"/>
+        <image name="trophy" width="808" height="1131"/>
     </resources>
 </document>

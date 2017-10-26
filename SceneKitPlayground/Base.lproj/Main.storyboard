@@ -72,15 +72,14 @@
                                 </constraints>
                             </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4bQ-M6-lmy">
-                                <rect key="frame" x="37" y="393" width="300" height="2"/>
+                                <rect key="frame" x="37" y="410" width="300" height="2"/>
                             </progressView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rVx-8P-Xa8">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <rect key="frame" x="177" y="340" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="A5o-3g-EDk" firstAttribute="top" secondItem="VqV-EH-4cK" secondAttribute="bottom" constant="8" id="1a3-gI-asC"/>
-                            <constraint firstItem="rVx-8P-Xa8" firstAttribute="centerY" secondItem="qgr-uM-kEw" secondAttribute="centerY" id="5AD-91-wij"/>
                             <constraint firstItem="nL3-pY-hmc" firstAttribute="width" secondItem="qgr-uM-kEw" secondAttribute="width" id="6AB-Tw-VQD"/>
                             <constraint firstItem="4bQ-M6-lmy" firstAttribute="top" secondItem="rVx-8P-Xa8" secondAttribute="bottom" constant="50" id="AAV-Ca-0uY"/>
                             <constraint firstItem="M2r-a1-uzs" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="FgF-50-Xxa"/>
@@ -88,6 +87,7 @@
                             <constraint firstItem="M2r-a1-uzs" firstAttribute="centerY" secondItem="qgr-uM-kEw" secondAttribute="centerY" id="P8Z-HI-lMD"/>
                             <constraint firstItem="A5o-3g-EDk" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="W3q-bq-YmV"/>
                             <constraint firstItem="rVx-8P-Xa8" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="Xez-45-hOD"/>
+                            <constraint firstItem="rVx-8P-Xa8" firstAttribute="top" secondItem="9iJ-fe-cF4" secondAttribute="bottom" constant="30" id="ctO-e5-Ze7"/>
                             <constraint firstItem="4bQ-M6-lmy" firstAttribute="width" secondItem="qgr-uM-kEw" secondAttribute="width" multiplier="0.8" id="fwR-kc-md9"/>
                             <constraint firstItem="nL3-pY-hmc" firstAttribute="centerX" secondItem="qgr-uM-kEw" secondAttribute="centerX" id="jtY-1J-jbO"/>
                             <constraint firstItem="M2r-a1-uzs" firstAttribute="width" secondItem="qgr-uM-kEw" secondAttribute="width" id="oJ8-J3-JKe"/>
@@ -332,8 +332,8 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4v-BD-CZV">
-                                        <rect key="frame" x="329" y="24.5" width="38" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4v-BD-CZV">
+                                        <rect key="frame" x="321" y="25" width="46" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

@@ -50,13 +50,20 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
         
         //set up game
         gameManager.delegate = self
-        gameManager.startGame()
-        startTimer()
-        populateTableView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let position = cameraNode.position
+        let moveTo = SCNAction.move(to: SCNVector3(x: position.x, y: 0, z: position.z), duration: 4)
+        self.cameraNode.runAction(moveTo, completionHandler: {
+            DispatchQueue.main.async {
+                self.titlesTableView.isUserInteractionEnabled = true
+                self.startTimer()
+                self.gameManager.startGame()
+                self.populateTableView()
+            }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,7 +98,7 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate, EndGame
         let maze = mazeManager.maze
         let startX = Float(maze.start.0)
         let startZ = Float(maze.start.1)
-        cameraNode.position = SCNVector3(x: startX*size, y: 0, z: startZ*size)
+        cameraNode.position = SCNVector3(x: startX*size, y: 20, z: startZ*size)
         cameraDirection = Float.pi/2 * Float(maze.startFacing.rawValue)
         cameraElevation = cameraNode.orientation.x
         cameraNode.eulerAngles = SCNVector3(x: cameraElevation, y: cameraDirection, z: 0)

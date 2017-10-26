@@ -47,6 +47,7 @@ class MazeManager: NSObject {
     
     func createMaze() {
         let random = arc4random_uniform(UInt32(5))
+        maze.number = Int(random)
         switch random {
         case 0:
             maze = Maze(dictionary: [

@@ -13,6 +13,7 @@ class Maze: NSObject {
     var end = (0, 0)
     var invalid = [Int: Set<Int>]()
     var startFacing:Direction = .north
+    var number = 0
     
     init(dictionary: [Int: Set<Int>]) {
         invalid = dictionary

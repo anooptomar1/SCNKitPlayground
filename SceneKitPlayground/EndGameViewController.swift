@@ -22,13 +22,19 @@ class EndGameViewController: UIViewController {
         timeManager.stopWatch.totalTime = Double(player.time)
         timeManager.updateStopWatch()
         timeLabel.text = timeManager.getTimeString()
-        let score = DataManager.sharedInstance.generateScore()
-        score.time = player.time
-        score.steps = player.steps
-        DataManager.sharedInstance.saveContext()
     }
 
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func addHighScore() {
+        let score = DataManager.sharedInstance.generateScore()
+        score.time = player.time
+        score.steps = player.steps
+        let mazeManager = MazeManager.sharedInstance
+        score.mapNumber = Int16(mazeManager.maze.number)
+        score.easyMode = mazeManager.options.easyMode
+        DataManager.sharedInstance.saveContext()
     }
 }
